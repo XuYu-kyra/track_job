@@ -60,7 +60,7 @@ def fetch_jobs(config_path: str, limit_per_query: int, detail_limit_total: int) 
     search_config = config.get("job_search", {})
     posted_hours = int(search_config.get("posted_within_hours", 24))
     titles = list(search_config.get("titles", []))
-    regions = list(search_config.get("regions", [])) or ["United Kingdom"]
+    regions = list(search_config.get("regions", [])) or ["Your target region"]
     cache_dir = Path(config.get("output", {}).get("cache_dir", "data/job_cache"))
     fallback_path = cache_dir / "manual_indeed_jobs.json"
 

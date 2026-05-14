@@ -440,7 +440,7 @@ def build_cover_letter_paragraphs(
     if compact:
         paragraph_2 += " Across my studies, internship and projects, I have built systems with reproducible workflows and clear communication."
     else:
-        paragraph_2 += " Across my MSc Robotics studies, internship experience and software projects, I have built systems that combine implementation detail with reproducible workflows and clear communication."
+        paragraph_2 += " Across my studies, internship experience and software projects, I have built systems that combine implementation detail with reproducible workflows and clear communication."
     project_phrase = ", ".join(selected_project_names[:2]) if selected_project_names else "my most relevant projects"
     project_alignment = {
         "ai_engineer": "AI workflow design, retrieval and reproducible application orchestration",

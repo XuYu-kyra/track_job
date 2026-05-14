@@ -25,47 +25,8 @@ hard_filters:
     - at least 5 years
     - minimum 5 years
     - extensive commercial experience
-  visa_hard_filters:
-    - no sponsorship
-    - no visa sponsorship
-    - no sponsorship available
-    - unable to sponsor
-    - we do not sponsor
-    - sponsorship is not available
-    - must not require sponsorship
-    - without requiring visa sponsorship
-    - full uk working rights, without requiring visa sponsorship
-    - full uk working rights without requiring visa sponsorship
-    - must have full right to work in the uk
-    - must have full uk working rights
-    - must have unrestricted right to work
-    - unrestricted right to work in the uk required
-    - must already have the right to work permanently
-    - must be a british citizen
-    - british citizens only
-    - british nationals only
-    - require british nationality
-    - requires british nationality
-    - british nationality required
-    - british nationality for high-level security clearance
-    - requires uk nationality
-    - uk nationality required
-    - uk nationals only
-    - sole british national
-    - dv clearance required
-    - active security clearance required
-    - existing security clearance required
-    - active sc clearance required
-    - current sc clearance required
-    - must already hold sc clearance
-    - already hold sc clearance
-    - current security clearance required
-  student_status_hard_filters:
-    - prior graduation
-    - this is not for current students
-    - not for current students
-    - must have already graduated
-    - already graduated
+  visa_hard_filters: []
+  student_status_hard_filters: []
 
 experience_penalties:
   heavy:
@@ -77,22 +38,9 @@ experience_penalties:
     - minimum 3 years
     - at least 3 years
 
-visa_medium_risks:
-  - must be eligible for uk security check clearance
-  - eligible for sc clearance
-  - ability to obtain sc clearance
-  - security check clearance
-  - eligible for security clearance
+visa_medium_risks: []
 
-visa_soft_risks:
-  - security clearance may be required
-  - government clients
-  - defence
-  - defense
-  - national security
-  - homeland security
-  - export control
-  - regulated environment
+visa_soft_risks: []
 
 role_tracks:
   ai_agent:
@@ -533,7 +481,6 @@ seniority_positive:
     code reviews: 3
     proactive in learning: 3
     learn new technologies: 3
-    september 2026 start: 4
     strong graduate-level project experience: 6
     graduate-level project experience: 6
     willingness to learn: 4
@@ -575,9 +522,8 @@ delivery_workflow_fit:
 
 visa_work_auth_fit:
   positive:
-    sponsorship available: 10
-    visa sponsorship available: 10
-    skilled worker sponsorship: 10
+    employer sponsorship available: 10
+    work authorization support available: 10
     welcomes international applicants: 8
   neutral_default: 5
   soft_risk_score: 4

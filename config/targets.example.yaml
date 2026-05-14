@@ -1,5 +1,5 @@
 schedule:
-  timezone: Europe/London
+  timezone: UTC
   daily_run_time: "19:00"
   target_jobs_per_run: 5
   max_jobs_per_run: 10
@@ -16,18 +16,15 @@ job_search:
     prefer: true
     bonus_only: true
   regions:
-    - United Kingdom
+    - Your target region
   remote_preference:
     - Remote
     - Hybrid
     - On-site
   titles:
-    - Graduate Software Engineer
-    - Junior Software Engineer
-    - AI Engineer
-    - Machine Learning Engineer
-    - Data Scientist
-    - Robotics Software Engineer
+    - Example Role 1
+    - Example Role 2
+    - Example Role 3
   title_keywords_include:
     - graduate
     - junior
@@ -49,9 +46,8 @@ job_search:
 candidate_profile:
   name: YOUR_NAME
   preferred_roles:
-    - AI Engineer
-    - Software Engineer
-    - Machine Learning Engineer
+    - Role type you want
+    - Another role type you want
   degree_status:
     current_degree: Your degree
     graduation_window: "Month YYYY"
@@ -59,7 +55,7 @@ candidate_profile:
     current: Your city
     open_to_relocate: true
   work_authorization:
-    uk_requires_sponsorship: true
+    requires_employer_sponsorship: false
 
 output:
   generated_resume_dir: cv/generated/resumes

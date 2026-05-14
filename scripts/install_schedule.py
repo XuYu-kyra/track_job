@@ -59,7 +59,7 @@ def main() -> None:
         print("Removed scheduled pipeline cron entry.")
         return
 
-    timezone = str(load_config(args.config).get("schedule", {}).get("timezone", "Europe/London"))
+    timezone = str(load_config(args.config).get("schedule", {}).get("timezone", "UTC"))
     lines.append(f"CRON_TZ={timezone} {TZ_MARKER}")
     lines.append(build_cron_line(args.config))
     write_crontab(lines)
