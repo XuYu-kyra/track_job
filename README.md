@@ -1,54 +1,99 @@
-# Find Job Public Template
+# Track Job
 
-A sanitized, open-source-friendly template for a daily job-search pipeline:
+Privacy-first job search automation for people who want a reusable system, not another spreadsheet.
 
-- fetch jobs from LinkedIn, Indeed, or manual inputs
-- merge and score opportunities against configurable heuristics
-- generate tailored resume and cover-letter drafts from local materials
-- optionally sync shortlisted jobs into Feishu Bitable
+`track_job` helps you collect roles, score them, generate tailored application materials, and keep the private parts of your workflow out of Git. It also ships with a companion Codex skill so the repo is easier to adapt, maintain, and open-source safely.
 
-This repository is intentionally designed to be publishable. It does not track personal identity data, private job caches, generated documents, or live platform credentials.
+## What you can use this for
 
-## Why this repo exists
+- Build a personal daily job pipeline instead of manually juggling tabs, notes, and drafts
+- Collect roles from LinkedIn, Indeed, or your own hand-picked links
+- Shortlist opportunities with transparent scoring rules you can actually inspect
+- Generate targeted resume and cover-letter drafts from your own local materials
+- Sync shortlisted roles into Feishu Bitable if you want a lightweight review queue
+- Turn a private, messy job-application repo into a publish-safe template without leaking identity data
 
-This template separates reusable pipeline code from private candidate data. The idea is simple:
+## Why this project is different
 
-- keep code, schemas, and workflow logic in Git
-- keep your profile, secrets, generated outputs, and real job history local
+Most job-search tooling breaks in one of two ways:
 
-That split makes the project easier to open-source, review, fork, and extend.
+- it is too generic, so it never fits your actual application workflow
+- it stores too much personal data in the repo, so publishing it becomes risky
 
-## Features
+`track_job` is built around a cleaner split:
+
+- reusable code and examples stay in Git
+- your profile, secrets, job caches, and generated documents stay local
+
+That makes this repository useful both as:
+
+- a real working pipeline you can fork and personalize
+- a reference architecture for privacy-safe automation projects
+
+## Why the companion skill matters
+
+This repo includes a Codex skill at `skills/job-pipeline-template/`.
+
+Use the repository when you want the code.
+
+Use the skill when you want Codex to:
+
+- understand the project structure fast
+- adapt the template for a new user
+- tune scoring or pipeline behavior
+- preserve the privacy boundary while making changes
+- help publish a private fork safely
+
+In short:
+
+- the repo is the system
+- the skill is the operator guide for AI pair-programming on that system
+
+## How it works
+
+```text
+job sources
+  -> LinkedIn / Indeed / manual links
+  -> merge and dedupe
+  -> score with configurable rules
+  -> shortlist good-fit roles
+  -> generate tailored resume + cover letter drafts
+  -> optionally sync to Feishu
+```
+
+## Who this is for
+
+This project is a strong fit if you:
+
+- apply to many roles but still want human review over the final shortlist
+- want repeatable application materials without storing private data in GitHub
+- like hackable local tools more than SaaS dashboards
+- want to build on top of an existing pipeline instead of starting from zero
+- use Codex or AI coding assistants and want a repo that is skill-aware
+
+## Feature highlights
 
 - Multi-source collection scripts for LinkedIn, Indeed, and manual link imports
 - Merge and dedupe pipeline for raw job feeds
-- Configurable heuristic scoring system
+- Configurable heuristic scoring system in `config/scoring.yaml`
 - Local resume and cover-letter generation using LaTeX templates
-- Optional Feishu Bitable sync and alerting
+- Optional Feishu Bitable sync and failure alerting
+- Publish-safe example configs and placeholder materials
 - Companion Codex skill for operating and adapting the template
 
-## Repository layout
+## Privacy-first by design
 
-```text
-config/                  Example configs and scoring rules
-cv/                      Publishable placeholder templates and materials
-data/job_cache/          Local input area for manual links and generated caches
-scripts/                 Pipeline scripts
-skills/                  Companion Codex skill
-.github/workflows/       Basic CI
-```
+This repository is intentionally designed to be publishable.
 
-## Privacy model
+It does not track:
 
-This template intentionally keeps the following out of version control:
-
-- real names, phone numbers, email addresses, LinkedIn URLs, portfolio URLs
-- Feishu app secrets, app tokens, table IDs, and view IDs
-- cached fetched jobs
+- real names, phone numbers, email addresses, LinkedIn URLs, or portfolio URLs
+- Feishu app secrets, app tokens, table IDs, or view IDs
+- fetched job caches
 - generated resumes and cover letters
 - scheduler logs and local runtime artifacts
 
-Before pushing, run:
+Before pushing changes, run:
 
 ```bash
 make privacy-check
@@ -83,10 +128,20 @@ python3 scripts/score_jobs.py --config config/targets.yaml --scoring-config conf
 python3 scripts/generate_resume.py --min-score 60
 ```
 
-6. Run a local health check:
+6. Run the local checks:
 
 ```bash
 make check
+```
+
+## Repository layout
+
+```text
+config/                  Example configs and scoring rules
+cv/                      Publishable placeholder templates and materials
+data/job_cache/          Local input area for manual links and generated caches
+scripts/                 Pipeline scripts
+skills/                  Companion Codex skill
 ```
 
 ## Local-only files you should create
@@ -103,13 +158,12 @@ Start from:
 - `config/feishu.example.yaml`
 - `config/profile.example.yaml`
 
-## Skill support
+## Good starting use cases
 
-This repository includes a companion skill in `skills/job-pipeline-template/`. Use it when you want Codex to:
-
-- understand the template structure quickly
-- adapt the pipeline for a new user
-- prepare a safe public release of a private job-pipeline repo
+- Fork this repo and turn it into your own job-application operating system
+- Reuse just the scoring and dedupe pieces in another personal pipeline
+- Use it as a template for any workflow that needs a public/private split
+- Pair it with Codex using the included skill for faster customization
 
 ## Development
 
@@ -125,4 +179,4 @@ make privacy-check
 - `scripts/generate_resume.py` supports an optional local `config/profile.yaml`.
 - If `config/profile.yaml` is missing, generated documents fall back to safe placeholders.
 - LaTeX PDF generation requires `latexmk`.
-- This repository assumes a local, user-managed workflow rather than a hosted service.
+- This project is local-first and user-managed rather than a hosted service.
