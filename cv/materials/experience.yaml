@@ -1,0 +1,28 @@
+experience:
+  - id: sample_internship
+    company: Example Labs
+    title: Software Engineering Intern
+    location: London, UK
+    date_range: Jun 2025 -- Aug 2025
+    tags:
+      - backend
+      - testing
+      - analytics
+      - stakeholder
+    bullets:
+      - Built internal tooling to streamline repetitive workflows and reduce manual reporting effort.
+      - Added data-quality checks and debugging steps to make engineering outputs more reliable.
+      - Worked with teammates to translate ambiguous requirements into practical software tasks.
+    bullet_variants:
+      ai_engineer:
+        - Supported AI-adjacent workflows by improving tooling, validation checks and delivery reliability.
+      software_engineer:
+        - Built maintainable internal tooling and improved debugging and testing workflows.
+      data_scientist:
+        - Improved data quality and reporting workflows used in internal decision-making.
+      robotics_engineer:
+        - Strengthened testing and integration habits through tooling and structured validation.
+    role_targets:
+      - ai_engineer
+      - software_engineer
+      - data_scientist

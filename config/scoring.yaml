@@ -1,0 +1,592 @@
+weights:
+  role_track_fit: 25
+  evidence_skill_fit: 30
+  seniority_training_fit: 20
+  delivery_workflow_fit: 10
+  visa_work_auth_fit: 10
+  application_effort_bonus: 5
+
+hard_filters:
+  title_contains:
+    - senior
+    - lead
+    - principal
+    - staff engineer
+    - engineering manager
+    - manager
+    - director
+    - head of
+  experience_hard_filters:
+    - 5+ years
+    - 6+ years
+    - 7+ years
+    - 8+ years
+    - 10+ years
+    - at least 5 years
+    - minimum 5 years
+    - extensive commercial experience
+  visa_hard_filters:
+    - no sponsorship
+    - no visa sponsorship
+    - no sponsorship available
+    - unable to sponsor
+    - we do not sponsor
+    - sponsorship is not available
+    - must not require sponsorship
+    - without requiring visa sponsorship
+    - full uk working rights, without requiring visa sponsorship
+    - full uk working rights without requiring visa sponsorship
+    - must have full right to work in the uk
+    - must have full uk working rights
+    - must have unrestricted right to work
+    - unrestricted right to work in the uk required
+    - must already have the right to work permanently
+    - must be a british citizen
+    - british citizens only
+    - british nationals only
+    - require british nationality
+    - requires british nationality
+    - british nationality required
+    - british nationality for high-level security clearance
+    - requires uk nationality
+    - uk nationality required
+    - uk nationals only
+    - sole british national
+    - dv clearance required
+    - active security clearance required
+    - existing security clearance required
+    - active sc clearance required
+    - current sc clearance required
+    - must already hold sc clearance
+    - already hold sc clearance
+    - current security clearance required
+  student_status_hard_filters:
+    - prior graduation
+    - this is not for current students
+    - not for current students
+    - must have already graduated
+    - already graduated
+
+experience_penalties:
+  heavy:
+    - 4+ years
+    - minimum 4 years
+    - at least 4 years
+  medium:
+    - 3+ years
+    - minimum 3 years
+    - at least 3 years
+
+visa_medium_risks:
+  - must be eligible for uk security check clearance
+  - eligible for sc clearance
+  - ability to obtain sc clearance
+  - security check clearance
+  - eligible for security clearance
+
+visa_soft_risks:
+  - security clearance may be required
+  - government clients
+  - defence
+  - defense
+  - national security
+  - homeland security
+  - export control
+  - regulated environment
+
+role_tracks:
+  ai_agent:
+    title_keywords:
+      - ai developer
+      - ai engineer
+      - artificial intelligence engineer
+      - applied ai
+      - agent
+    jd_keywords:
+      - ai agent
+      - agents
+      - agentic
+      - tool calling
+      - function calling
+      - copilot studio
+      - power platform
+      - power automate
+      - semantic kernel
+      - langchain
+      - llamaindex
+      - autogen
+      - structured output
+      - hallucination
+      - output validation
+      - golden cases
+      - regression tests
+      - human-in-the-loop
+      - llm evaluation
+  ai_prototype:
+    title_keywords:
+      - ai specialist
+      - ai analyst
+      - ai developer
+      - artificial intelligence engineer
+      - applied ai
+    jd_keywords:
+      - ai prototype
+      - prototype
+      - interface
+      - web interface
+      - business workflow
+      - stakeholder
+      - feedback loops
+      - performance metrics
+      - internal reporting
+      - tailored ai solutions
+      - data analytics
+  ai_backend:
+    title_keywords:
+      - software engineer
+      - ai engineer
+      - artificial intelligence engineer
+      - backend engineer
+      - forward deployed engineer
+      - fde
+    jd_keywords:
+      - enterprise software
+      - natural language
+      - full-stack applications
+      - agent management
+      - apis
+      - database interactions
+      - backend systems
+      - deployment
+      - scalable
+      - reliable
+      - compliant
+      - ai tools
+      - grpc
+      - rust
+  data_platform:
+    title_keywords:
+      - data analyst
+      - analytics engineer
+      - data engineer
+      - data platform
+      - enterprise data
+    jd_keywords:
+      - dashboard
+      - sql
+      - data quality
+      - data-quality
+      - business metrics
+      - semantic layer
+      - reusable datasets
+      - data platform
+      - databricks
+      - pyspark
+      - power bi
+      - tableau
+      - streamlit
+      - metric transparency
+      - user onboarding
+  backend_software:
+    title_keywords:
+      - software engineer i
+      - software engineer
+      - backend engineer
+      - full stack engineer
+      - associate software engineer
+      - junior software engineer
+    jd_keywords:
+      - backend
+      - api
+      - rest
+      - graphql
+      - java
+      - c#
+      - c++
+      - python
+      - sql
+      - nosql
+      - docker
+      - git
+      - linux
+      - testing
+      - debugging
+      - code review
+      - deployment
+      - object-oriented
+      - data structures
+      - algorithms
+  enterprise_software:
+    title_keywords:
+      - junior software developer
+      - graduate software developer
+      - software developer
+      - application developer
+      - junior developer
+    jd_keywords:
+      - applications
+      - maintain applications
+      - functional code
+      - code reviews
+      - testing
+      - quality assurance
+      - documentation
+      - database objects
+      - relational database
+      - tables
+      - views
+      - stored procedures
+      - sql
+      - pl/sql
+      - t-sql
+      - html
+      - css
+      - javascript
+      - oracle
+      - apex
+  systems_devops:
+    title_keywords:
+      - devops engineer
+      - software devops engineer
+      - systems engineer
+      - platform engineer
+    jd_keywords:
+      - linux
+      - microservices
+      - docker
+      - kubernetes
+      - ci/cd
+      - on-call
+      - operational
+      - high availability
+      - networking
+      - tcp/ip
+      - http
+      - c++
+      - c#
+      - c
+      - audio
+      - video
+      - media
+      - real-time
+  algorithm_data:
+    title_keywords:
+      - algorithm engineer
+      - data engineer
+      - applied data engineer
+      - data scientist
+    jd_keywords:
+      - algorithm
+      - forecasting
+      - pricing
+      - optimisation
+      - optimization
+      - data models
+      - large datasets
+      - high-frequency data
+      - pandas
+      - numpy
+      - scipy
+      - polars
+      - duckdb
+      - dask
+      - pyspark
+      - model evaluation
+  robotics_perception:
+    title_keywords:
+      - robotics
+      - perception
+      - vision
+      - robotic systems
+    jd_keywords:
+      - ros2
+      - opencv
+      - computer vision
+      - image processing
+      - perception
+      - localisation
+      - localization
+      - mobile manipulation
+      - sensor
+      - simulation
+
+track_evidence_weights:
+  ai_agent:
+    ai_llm: 1.0
+    software_backend: 0.5
+    enterprise_app: 0.2
+    data_analytics: 0.2
+  ai_prototype:
+    ai_llm: 0.9
+    data_analytics: 0.8
+    software_backend: 0.5
+    enterprise_app: 0.3
+  ai_backend:
+    ai_llm: 0.7
+    software_backend: 1.0
+    enterprise_app: 0.4
+    data_analytics: 0.3
+  data_platform:
+    data_analytics: 1.0
+    enterprise_app: 0.5
+    software_backend: 0.4
+    ai_llm: 0.1
+  backend_software:
+    software_backend: 1.0
+    enterprise_app: 0.6
+    data_analytics: 0.3
+    ai_llm: 0.1
+  enterprise_software:
+    enterprise_app: 1.0
+    software_backend: 0.8
+    data_analytics: 0.4
+    ai_llm: 0.0
+  systems_devops:
+    software_backend: 0.7
+    enterprise_app: 0.3
+    media_systems: 0.5
+    ai_llm: 0.0
+  algorithm_data:
+    data_analytics: 1.0
+    software_backend: 0.5
+    ai_llm: 0.2
+  robotics_perception:
+    robotics_systems: 1.0
+    software_backend: 0.4
+    ai_llm: 0.1
+
+strong_evidence_skills:
+  ai_llm:
+    - rag
+    - prompt flow
+    - prompt design
+    - embeddings
+    - vector search
+    - weaviate
+    - bert
+    - roberta
+    - transformers
+    - semantic retrieval
+    - fastapi
+    - openapi
+    - docker
+  data_analytics:
+    - sql
+    - streamlit
+    - dashboard
+    - dynamic filters
+    - user deduplication
+    - user logs
+    - performance data
+    - data-quality checks
+    - metric review
+    - internal reporting
+    - stakeholder summaries
+  software_backend:
+    - python
+    - c#
+    - c++
+    - c
+    - javascript
+    - django
+    - fastapi
+    - rest api
+    - openapi
+    - docker
+    - git
+    - linux
+    - testing
+    - debugging
+  enterprise_app:
+    - javascript
+    - sql
+    - relational database
+    - database
+    - dashboard
+    - internal tool
+    - django
+    - fastapi
+    - web interface
+    - testing
+    - debugging
+    - documentation
+    - stakeholder
+    - requirements
+    - code review
+    - html
+    - css
+  robotics_systems:
+    - ros2
+    - opencv
+    - linux
+    - image processing
+    - perception
+    - modular nodes
+    - simulation testing
+  media_systems:
+    - hls
+    - tutk
+    - audio-visual media processing
+    - facial recognition
+    - interactive media
+    - real-time visual feedback
+
+weak_evidence_skills:
+  - aws
+  - azure
+  - kubernetes
+  - terraform
+  - ci/cd
+  - databricks
+  - pyspark
+  - power bi
+  - tableau
+  - rust
+  - grpc
+  - kafka
+  - postgresql
+  - elasticsearch
+  - redis
+  - langchain
+  - llamaindex
+  - semantic kernel
+  - copilot studio
+  - power platform
+
+unsupported_critical_stack:
+  rust_grpc:
+    keywords:
+      - rust
+      - grpc
+    penalty_if_core: 8
+  cloud_devops:
+    keywords:
+      - aws
+      - terraform
+      - kubernetes
+      - ci/cd
+      - infrastructure as code
+    penalty_if_core: 10
+  data_platform_gap:
+    keywords:
+      - databricks
+      - pyspark
+      - power bi
+      - tableau
+    penalty_if_core: 6
+  distributed_systems_gap:
+    keywords:
+      - kafka
+      - distributed systems
+      - message queues
+      - high availability
+      - low latency
+    penalty_if_core: 10
+  oracle_enterprise_gap:
+    keywords:
+      - oracle
+      - apex
+      - pl/sql
+    penalty_if_core: 8
+
+penalty_adjustments:
+  training_markers:
+    - no prior rust experience required
+    - no prior experience required
+    - training provided
+    - comprehensive training
+    - comprehensive oracle training
+    - training and support
+    - support to help you develop
+    - learn on the job
+    - work closely with senior developers
+  unsupported_stack_penalty_reduction_factor: 0.25
+
+seniority_positive:
+  title_keywords:
+    graduate: 10
+    junior: 8
+    entry: 8
+    associate: 7
+    software engineer i: 8
+    early career: 8
+    intern: 5
+  jd_phrases:
+    graduate software engineer: 12
+    graduate software developer: 12
+    mentorship: 5
+    formal training: 5
+    we provide training: 5
+    room to grow: 4
+    eager to learn: 4
+    no prior experience required: 5
+    you don't need experience with everything: 5
+    welcome applications without: 5
+    we will ramp up: 5
+    no prior rust experience required: 5
+    learn on the job: 4
+    comprehensive training: 6
+    comprehensive oracle training: 6
+    training and support: 6
+    support to help you develop: 5
+    work closely with senior developers: 4
+    code reviews: 3
+    proactive in learning: 3
+    learn new technologies: 3
+    september 2026 start: 4
+    strong graduate-level project experience: 6
+    graduate-level project experience: 6
+    willingness to learn: 4
+    take feedback: 3
+    work collaboratively: 3
+    supportive environment: 4
+    comprehensive training program: 6
+
+seniority_negative:
+  title_keywords:
+    mid-level: -20
+  jd_phrases:
+    mentor teammates: -12
+    lead complex projects: -15
+    own technical roadmap: -15
+    production ownership from day one: -8
+    high availability critical systems: -8
+
+delivery_workflow_fit:
+  stakeholder: 2
+  non-technical stakeholders: 2
+  prototype: 2
+  testing: 2
+  debugging: 2
+  documentation: 2
+  maintenance: 1
+  maintain applications: 1
+  evaluation: 2
+  performance metrics: 2
+  feedback loops: 2
+  user feedback: 2
+  onboarding: 1
+  code review: 1
+  cross-functional: 1
+  product managers: 1
+  business requirements: 2
+  take feedback: 1
+  work collaboratively: 1
+
+visa_work_auth_fit:
+  positive:
+    sponsorship available: 10
+    visa sponsorship available: 10
+    skilled worker sponsorship: 10
+    welcomes international applicants: 8
+  neutral_default: 5
+  soft_risk_score: 4
+  medium_risk_score: 3
+
+risk_penalties:
+  clearance_eligibility_risk: 7
+  defence_security_sector: 4
+  regulated_or_export_risk: 3
+
+application_effort_bonus:
+  easy_apply: 5

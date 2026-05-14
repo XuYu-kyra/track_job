@@ -1,0 +1,4 @@
+interface:
+  display_name: "Job Pipeline Template"
+  short_description: "Operate a publish-safe job pipeline template"
+  default_prompt: "Use $job-pipeline-template to adapt or operate this public job pipeline template."

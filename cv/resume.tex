@@ -1,0 +1,64 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage[a4paper,top=0.55in,bottom=0.55in,left=0.55in,right=0.55in]{geometry}
+\pagestyle{empty}
+
+\titleformat{\section}{\bfseries\large}{}{0em}{}[\titlerule]
+\titlespacing*{\section}{0pt}{8pt}{4pt}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small #3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-6pt}
+}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0pt,label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=14pt,topsep=2pt,itemsep=1pt,parsep=0pt,partopsep=0pt]}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-6pt}}
+
+\begin{document}
+
+\begin{center}
+    {\LARGE \textbf{{{FULL_NAME}}}}\\[4pt]
+    \href{mailto:{{EMAIL}}}{{EMAIL}}
+    \;|\;
+    {{PHONE}}
+    \;|\;
+    \href{{LINKEDIN_URL}}{LinkedIn}
+    \;|\;
+    \href{{PORTFOLIO_URL}}{Portfolio}
+\end{center}
+
+\section{Education}
+\resumeSubHeadingListStart
+  \resumeSubheading
+    {Example University}{Example City}
+    {MSc Example Subject}{Sep 2025 -- Sep 2026}
+    \resumeItemListStart
+      \item \small{Replace this section with your real education details in your private copy.}
+    \resumeItemListEnd
+\resumeSubHeadingListEnd
+
+\section{Experience}
+\resumeSubHeadingListStart
+\resumeSubHeadingListEnd
+
+\section{Projects}
+\resumeSubHeadingListStart
+\resumeSubHeadingListEnd
+
+\section{Technical Skills}
+\resumeSubHeadingListStart
+  \item{
+    \textbf{Example Group}{: Python, SQL, Git, Docker} \\
+  }
+\resumeSubHeadingListEnd
+
+\end{document}

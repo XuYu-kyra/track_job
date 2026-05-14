@@ -1,0 +1,13 @@
+# One job per line.
+#
+# Supported forms:
+# 1. Raw link only
+#    https://uk.indeed.com/viewjob?jk=example123
+#
+# 2. Template format
+#    URL | Company | Position | Location | Optional short description
+#
+# Examples:
+# https://uk.indeed.com/viewjob?jk=example123
+# https://uk.indeed.com/viewjob?jk=example123 | Example Ltd | Graduate Software Engineer | London, England, United Kingdom |
+# https://www.glassdoor.co.uk/job-listing/example-role-123 | Example Ltd | Junior Data Scientist | Remote, United Kingdom | Python, SQL, dashboards, testing

@@ -1,0 +1,39 @@
+projects:
+  - id: sample_ai_project
+    name: Example Retrieval Project
+    repo_url: https://github.com/example/example-retrieval-project
+    date_range: 2025
+    tags:
+      - rag
+      - retrieval
+      - fastapi
+      - docker
+    bullets:
+      - Built an application prototype that combined retrieval, backend orchestration and reproducible workflows.
+      - Structured interfaces and deployment steps to make the project easier to test and iterate on.
+    bullet_variants:
+      ai_engineer:
+        - Combined retrieval, embeddings and backend orchestration in a reproducible AI application workflow.
+      software_engineer:
+        - Built maintainable backend components with clear interfaces and reproducible setup steps.
+    role_targets:
+      - ai_engineer
+      - software_engineer
+
+  - id: sample_robotics_project
+    name: Example Robotics Module
+    repo_url: ""
+    date_range: 2025
+    tags:
+      - ros2
+      - robotics
+      - perception
+    bullets:
+      - Built modular software components for perception and downstream system integration.
+      - Improved debugging and repeatability by separating responsibilities across modules.
+    bullet_variants:
+      robotics_engineer:
+        - Built modular robotics software with attention to debugging, integration and repeatable validation.
+    role_targets:
+      - robotics_engineer
+      - software_engineer

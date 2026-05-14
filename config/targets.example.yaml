@@ -1,0 +1,67 @@
+schedule:
+  timezone: Europe/London
+  daily_run_time: "19:00"
+  target_jobs_per_run: 5
+  max_jobs_per_run: 10
+
+job_search:
+  source: linkedin
+  sources:
+    - linkedin
+    - indeed
+  posted_within_hours: 24
+  shortlist_min_score: 50
+  allow_fewer_than_target: true
+  easy_apply:
+    prefer: true
+    bonus_only: true
+  regions:
+    - United Kingdom
+  remote_preference:
+    - Remote
+    - Hybrid
+    - On-site
+  titles:
+    - Graduate Software Engineer
+    - Junior Software Engineer
+    - AI Engineer
+    - Machine Learning Engineer
+    - Data Scientist
+    - Robotics Software Engineer
+  title_keywords_include:
+    - graduate
+    - junior
+    - software
+    - ai
+    - machine learning
+    - data
+    - robotics
+  title_keywords_exclude:
+    - senior
+    - principal
+    - staff
+    - manager
+    - director
+  company_filters:
+    include: []
+    exclude: []
+
+candidate_profile:
+  name: YOUR_NAME
+  preferred_roles:
+    - AI Engineer
+    - Software Engineer
+    - Machine Learning Engineer
+  degree_status:
+    current_degree: Your degree
+    graduation_window: "Month YYYY"
+  locations:
+    current: Your city
+    open_to_relocate: true
+  work_authorization:
+    uk_requires_sponsorship: true
+
+output:
+  generated_resume_dir: cv/generated/resumes
+  generated_coverletter_dir: cv/generated/coverletters
+  cache_dir: data/job_cache

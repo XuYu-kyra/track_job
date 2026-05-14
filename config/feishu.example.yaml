@@ -1,0 +1,34 @@
+app:
+  app_id: "YOUR_FEISHU_APP_ID"
+  app_secret: "YOUR_FEISHU_APP_SECRET"
+
+bitable:
+  app_token: "YOUR_BITABLE_APP_TOKEN"
+  table_id: "YOUR_TABLE_ID"
+  view_id: "YOUR_VIEW_ID"
+
+fields:
+  company: Company
+  position: Position
+  url: URL
+  date: Date
+  status: Status
+  progress: Progress
+  resume_draft: Resume Draft
+  cover_letter: Cover Letter
+  matching_score: matching score
+  score_breakdown: score breakdown
+
+defaults:
+  status: Need Review
+  progress: ""
+
+attachments:
+  upload_generated_files: true
+  store_local_path_when_upload_disabled: false
+
+alerts:
+  enabled: true
+  company_label: "[Pipeline Alert]"
+  status: Need Review
+  attach_log_file: true

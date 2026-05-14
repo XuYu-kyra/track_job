@@ -1,0 +1,23 @@
+skills:
+  ai_engineer:
+    - Python
+    - FastAPI
+    - Docker
+    - embeddings
+    - vector search
+  software_engineer:
+    - Python
+    - SQL
+    - Git
+    - Docker
+    - testing
+  data_scientist:
+    - Python
+    - SQL
+    - model evaluation
+    - data-quality checks
+  robotics_engineer:
+    - ROS2
+    - Linux
+    - computer vision
+    - debugging
