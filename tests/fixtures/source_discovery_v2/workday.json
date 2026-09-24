@@ -1,0 +1,23 @@
+{
+  "pages": [
+    {
+      "total": 3,
+      "jobPostings": [
+        {"title": "2027 Software Engineer", "locationsText": "China", "externalPath": "/job/Shenzhen/software_JR10001"},
+        {"title": "2027 Test Engineer", "locationsText": "China", "externalPath": "/job/Shenzhen/test_JR10002"}
+      ]
+    },
+    {
+      "total": 3,
+      "jobPostings": [
+        {"title": "2027 Test Engineer", "locationsText": "China", "externalPath": "/job/Shenzhen/test_JR10002"},
+        {"title": "2027 Backend Engineer", "locationsText": "China", "externalPath": "/job/Shenzhen/backend_JR10003"}
+      ]
+    }
+  ],
+  "details": {
+    "JR10001": {"location": "China, Shenzhen", "jobDescription": "A complete graduate software engineering description with Python APIs, testing, Linux delivery, collaboration, ownership and production diagnostics.", "startDate": "2026-09-01"},
+    "JR10002": {"location": "China, Shenzhen", "jobDescription": "A complete graduate test engineering description with automation, API validation, Linux debugging, CI pipelines and measurable quality practices.", "startDate": "2026-09-02"},
+    "JR10003": {"location": "China, Shenzhen", "jobDescription": "A complete graduate backend engineering description with Python services, databases, APIs, observability, automated tests and operational support.", "startDate": "2026-09-03"}
+  }
+}

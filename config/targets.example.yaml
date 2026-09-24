@@ -1,38 +1,85 @@
 schedule:
-  timezone: UTC
+  timezone: Asia/Shanghai
   daily_run_time: "19:00"
-  target_jobs_per_run: 5
-  max_jobs_per_run: 10
+  target_jobs_per_run: 12
+  max_jobs_per_run: 30
+
+operating_mode:
+  phase: PRE_APPLICATION_HOLD
+  dissertation_active: false
+  stale_after_days: 14
 
 job_search:
+  # Deprecated compatibility fallback. Discovery is controlled by sources and
+  # config/company_registry.yaml.
   source: linkedin
   sources:
+    - official
+    - nowcoder
+    - ncss
+    - guopin
+    - university_careers
+    - public_web
+    - gpt_web
     - linkedin
-    - indeed
-  posted_within_hours: 24
-  shortlist_min_score: 50
+    - manual
+  posted_within_hours: 72
+  source_registry: config/company_registry.yaml
+  # Per-company bounded pagination cap for public official adapters.
+  official_safety_cap: 500
+  query_batch_limit: 48
+  shortlist_min_score: 70
   allow_fewer_than_target: true
-  easy_apply:
-    prefer: true
-    bonus_only: true
   regions:
-    - Your target region
-  remote_preference:
-    - Remote
-    - Hybrid
-    - On-site
+    - Shenzhen
+    - 深圳
+  acceptable_locations:
+    - Shenzhen
+    - 深圳
+    - Remote China
+  # Deprecated fixed-query fallback retained for older collectors. Current
+  # collectors use role-family aliases from config/taxonomies.yaml.
   titles:
-    - Example Role 1
-    - Example Role 2
-    - Example Role 3
+    - Software Engineer Graduate
+    - Test Development Engineer
+    - AI Application Engineer
+    - Robotics Software Engineer
+    - Python Backend Engineer
+    - Java Backend Engineer
   title_keywords_include:
+    - 27届
+    - 2027届
+    - 2027 graduate
+    - 2027 campus
     - graduate
-    - junior
-    - software
-    - ai
-    - machine learning
-    - data
-    - robotics
+    - new grad
+    - new graduate
+    - campus
+    - 2027
+    - 应届
+    - 应届毕业生
+    - 校园招聘
+    - 校招
+    - 秋招
+    - 届毕业生
+  graduation_queries:
+    - 2027
+    - 27届
+    - 2027届
+    - 校招
+    - 校园招聘
+    - 应届
+    - 秋招
+  # LinkedIn-only search scope; this does not narrow official/public sources.
+  linkedin_search:
+    regions:
+      - Shenzhen
+      - 深圳
+      - Hong Kong SAR
+      - 香港
+      - United Kingdom
+      - UK
+  # Compatibility reference only; exclusions are applied contextually by scoring.yaml.
   title_keywords_exclude:
     - senior
     - principal
@@ -42,22 +89,130 @@ job_search:
   company_filters:
     include: []
     exclude: []
+  search_modes:
+    daily:
+      posted_within_hours: 72
+      batch_size: 30
+      query_limit: 24
+    backfill:
+      posted_within_days: 60
+      batch_size: 30
+      query_limit: 48
+      require_open: true
+      require_future_deadline_when_known: true
+
+open_market_discovery:
+  # The registry prioritizes known-company monitoring; it never limits recall.
+  registry_is_allowlist: false
+  unregistered_companies_allowed: true
+  p0_interval_days: 1
+  p1_cycle_days: 3
+  expansion_role_cycle_days: 4
+  dynamic_company_cycle_days: 3
+  query_plan_limit: 128
+  public_source_domains:
+    nowcoder: nowcoder.com/jobs
+    ncss: ncss.cn
+    guopin: iguopin.com
+    university_careers: edu.cn
+  ats_domains:
+    - myworkdayjobs.com
+    - zhiye.com
+    - hotjob.cn
+    - mokahr.com
+  campaign_terms:
+    - 应届
+    - 实习转正
+    - 提前批
+    - 正式批
+    - 秋招
+    - 补招
+    - 补录
 
 candidate_profile:
-  name: YOUR_NAME
-  preferred_roles:
-    - Role type you want
-    - Another role type you want
-  degree_status:
-    current_degree: Your degree
-    graduation_window: "Month YYYY"
-  locations:
-    current: Your city
-    open_to_relocate: true
-  work_authorization:
-    requires_employer_sponsorship: false
+  graduation_year: 2027
+  preferred_role_families:
+    - test_development
+    - ai_application
+    - robot_software
+    - general_software
+    - backend
+  expansion_role_families:
+    - fintech_backend
+    - fintech_tech
+    - data_engineering
+    - platform_sre
+    - engineering_tools
+    - software_automation
+    - developer_productivity
+    - reliability
+  repo_paths: []
+  github_profile_url: https://github.com/your-account
+  github_repositories: []
+  github_repository_exclude_names:
+    - Facial_music
+    - LB
+    - track_job
+
+application_capacity:
+  active_technical_processes: 0
+  comfort_max: 5
+  process_load_next_72h: 0
+  high_load_threshold: 7
+
+ready_to_apply:
+  base_cv: false
+  intro_1m: false
+  two_core_projects: false
+  algorithms_refreshed: false
+  cs_fundamentals_refreshed: false
+  next_72h_available: false
 
 output:
   generated_resume_dir: cv/generated/resumes
   generated_coverletter_dir: cv/generated/coverletters
   cache_dir: data/job_cache
+  candidate_repo_cache_dir: data/candidate_repos
+
+gpt_discovery:
+  enabled: true
+  mode: MANUAL_AGENT
+  input: data/discovery/gpt_manual/candidates.json
+  output: data/job_cache/gpt_manual_jobs.json
+  runner:
+    enabled: true
+    prompt: docs/gpt-discovery-agent.md
+    output_schema: config/manual_agent_batch.schema.json
+    timeout_seconds: 900
+    # Persist small receipt shards as they finish. A later --resume retries only
+    # failed or unexecuted queries instead of losing one monolithic 15-minute run.
+    max_queries_per_shard: 3
+    shard_timeout_seconds: 300
+    model: gpt-5.6-luna
+    reasoning_effort: low
+    # Bounded by the query-plan limit so a wide daily plan is not truncated to
+    # a handful of companies before normalization/deduplication.
+    max_candidates: 128
+
+semantic_review:
+  enabled: true
+  provider: deepseek
+  # DEEPSEEK_API_KEY is read from the process environment only. Never put it here.
+  base_url: https://api.deepseek.com
+  model: deepseek-v4-flash
+  trigger:
+    - READY
+    - MUST_APPLY
+    - USER_SELECTED
+  prompt_version: semantic-job-review-v4-compact-responses-json-schema
+  schema_version: "1.0"
+  cache_dir: data/job_cache/semantic_reviews
+  # Generated from cv/materials/evidence.yaml; do not hand-edit the runtime JSON.
+  candidate_evidence_input: data/job_cache/semantic_candidate_evidence.json
+  max_input_chars: 30000
+  max_candidate_evidence_items: 40
+  max_output_tokens: 4096
+  timeout_seconds: 30
+  max_retries: 2
+  retry_backoff_seconds: 0.5
+  max_reviews_per_run: 3

@@ -1,0 +1,53 @@
+apple:
+  reminders_lists:
+    dissertation: Dissertation
+    job_prep: Job Prep
+    applications: Applications
+    interviews: Interviews
+    admin: Admin
+  calendar_name: Study & Job
+  day_start: "09:00"
+
+dissertation:
+  title: Dissertation deep work
+  duration_minutes: 240
+  tags:
+    - Dissertation
+    - DeepWork
+
+study_modules:
+  - title: Algorithm practice
+    duration_minutes: 55
+    priority: core
+    tags:
+      - Algo
+      - DeepWork
+  - title: CS fundamentals recall
+    duration_minutes: 40
+    priority: core
+    tags:
+      - CS
+  - title: Engineering specialty output
+    duration_minutes: 55
+    priority: strategic
+    tags:
+      - Testing
+      - AI
+      - Java
+      - Cpp
+  - title: SQL or Linux practice
+    duration_minutes: 25
+    priority: maintenance
+    tags:
+      - SQL
+  - title: Project explanation practice
+    duration_minutes: 15
+    priority: core
+    tags:
+      - Project
+  - title: Self-introduction or STAR practice
+    duration_minutes: 15
+    priority: optional
+    tags:
+      - Interview
+

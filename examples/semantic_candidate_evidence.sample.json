@@ -1,0 +1,25 @@
+{
+  "evidence": [
+    {
+      "evidence_id": "EXAMPLE_AUTOMATION_01",
+      "project": "ANONYMIZED_PROJECT",
+      "category": "test automation",
+      "factual_description": "Replace this placeholder with one verified, identity-free project fact.",
+      "technologies": [
+        "Python",
+        "pytest"
+      ],
+      "verified_metrics": [],
+      "results": [],
+      "provenance": [
+        "repository:ANONYMIZED_PROJECT:tests/test_automation.py"
+      ],
+      "suitable_role_families": [
+        "test_development",
+        "general_software"
+      ],
+      "confidence": "LOW",
+      "source_class": "VERIFIED"
+    }
+  ]
+}

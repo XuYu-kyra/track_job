@@ -9,6 +9,7 @@ import json
 import random
 import re
 import time
+from datetime import datetime, timezone
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from urllib.parse import parse_qs, urlencode, urljoin, urlparse
@@ -17,8 +18,10 @@ import requests
 
 try:
     from common import load_config, normalize_whitespace, read_json
+    from query_matrix import build_query_matrix, posted_window_hours
 except ModuleNotFoundError:
     from scripts.common import load_config, normalize_whitespace, read_json
+    from scripts.query_matrix import build_query_matrix, posted_window_hours
 
 
 @dataclass
@@ -33,6 +36,9 @@ class JobListing:
     easy_apply: bool = False
     search_keyword: str = ""
     job_id: str = ""
+    campaign_context: str = ""
+    observation_origin: str = "CACHE_REPLAY"
+    observed_at: str = ""
 
 
 SEARCH_ENDPOINT = "https://uk.indeed.com/jobs"
@@ -49,18 +55,35 @@ HEADERS = {
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Fetch Indeed jobs for the daily pipeline.")
     parser.add_argument("--config", default="config/targets.yaml")
-    parser.add_argument("--output", default="data/job_cache/indeed_jobs.json")
-    parser.add_argument("--limit-per-query", type=int, default=12)
+    parser.add_argument("--taxonomy-config", default="config/taxonomies.yaml")
+    parser.add_argument("--output", default="")
+    parser.add_argument("--mode", choices=("daily", "backfill"), default="daily")
+    parser.add_argument("--batch-index", type=int, default=0)
+    parser.add_argument("--limit-per-query", type=int, default=8)
     parser.add_argument("--detail-limit-total", type=int, default=18)
     return parser.parse_args()
 
 
-def fetch_jobs(config_path: str, limit_per_query: int, detail_limit_total: int) -> list[JobListing]:
+def fetch_jobs(
+    config_path: str,
+    limit_per_query: int,
+    detail_limit_total: int,
+    *,
+    taxonomy_config: str = "config/taxonomies.yaml",
+    mode: str = "daily",
+    batch_index: int = 0,
+) -> list[JobListing]:
     config = load_config(config_path)
-    search_config = config.get("job_search", {})
-    posted_hours = int(search_config.get("posted_within_hours", 24))
-    titles = list(search_config.get("titles", []))
-    regions = list(search_config.get("regions", [])) or ["Your target region"]
+    mode_config = config.get("job_search", {}).get("search_modes", {}).get(mode, {})
+    batch_size = int(mode_config.get("batch_size", 30))
+    posted_hours = posted_window_hours(config, mode)
+    queries = build_query_matrix(
+        config,
+        load_config(taxonomy_config),
+        mode=mode,
+        source="indeed",
+        batch_index=batch_index,
+    )
     cache_dir = Path(config.get("output", {}).get("cache_dir", "data/job_cache"))
     fallback_path = cache_dir / "manual_indeed_jobs.json"
 
@@ -69,30 +92,38 @@ def fetch_jobs(config_path: str, limit_per_query: int, detail_limit_total: int) 
     collected: list[JobListing] = []
     blocked = False
 
-    for region in regions:
-        for title in titles:
-            try:
-                jobs = fetch_query_jobs(session, title, region, posted_hours, limit_per_query)
-                collected.extend(jobs)
-                time.sleep(random.uniform(1.0, 2.0))
-            except requests.RequestException as exc:
-                print(f"Indeed fetch warning for '{title}' in '{region}': {exc}")
-                blocked = True
-                continue
-            except RuntimeError as exc:
-                print(f"Indeed fetch warning for '{title}' in '{region}': {exc}")
-                blocked = True
-                continue
+    for query in queries:
+        keyword = query["keywords"]
+        region = query["location"]
+        try:
+            jobs = fetch_query_jobs(session, keyword, region, posted_hours, limit_per_query)
+            collected.extend(jobs)
+            time.sleep(random.uniform(1.0, 2.0))
+        except requests.RequestException as exc:
+            print(f"Indeed fetch warning for '{keyword}' in '{region}': {exc}")
+            blocked = True
+            continue
+        except RuntimeError as exc:
+            print(f"Indeed fetch warning for '{keyword}' in '{region}': {exc}")
+            blocked = True
+            continue
 
     deduped = dedupe_jobs(collected)
     if deduped:
         hydrate_job_details(session, deduped[:detail_limit_total])
-        return deduped
+        observed_at = datetime.now(timezone.utc).date().isoformat()
+        for job in deduped:
+            job.observation_origin = "LIVE_FETCH"
+            job.observed_at = observed_at
+        return deduped[:batch_size]
 
     fallback = read_json(fallback_path, [])
     if fallback:
         print(f"Falling back to cached manual Indeed jobs from {fallback_path}")
-        return [JobListing(**item) for item in fallback]
+        jobs = [JobListing(**item) for item in fallback]
+        for job in jobs:
+            job.observation_origin = "CACHE_REPLAY"
+        return jobs
 
     if blocked:
         print("Indeed returned blocked or empty responses; continuing without Indeed jobs.")
@@ -265,11 +296,19 @@ def dedupe_jobs(jobs: list[JobListing]) -> list[JobListing]:
 
 def main() -> None:
     args = parse_args()
-    jobs = fetch_jobs(args.config, args.limit_per_query, args.detail_limit_total)
-    output_path = Path(args.output)
+    jobs = fetch_jobs(
+        args.config,
+        args.limit_per_query,
+        args.detail_limit_total,
+        taxonomy_config=args.taxonomy_config,
+        mode=args.mode,
+        batch_index=args.batch_index,
+    )
+    default_name = "indeed_jobs.json" if args.mode == "daily" else "indeed_backfill_jobs.json"
+    output_path = Path(args.output or f"data/job_cache/{default_name}")
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps([asdict(job) for job in jobs], indent=2), encoding="utf-8")
-    print(f"Wrote {len(jobs)} jobs to {output_path}")
+    print(f"Wrote {len(jobs)} Indeed {args.mode} jobs to {output_path}")
 
 
 if __name__ == "__main__":

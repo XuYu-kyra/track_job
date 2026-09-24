@@ -1,0 +1,16 @@
+{
+  "date": "2026-09-02",
+  "planned_count": 6,
+  "completed_count": 3,
+  "completion_rate": 0.5,
+  "consecutive_low_days": 1,
+  "overdue_titles": [
+    "CS fundamentals recall"
+  ],
+  "completed_titles": [
+    "Algorithm practice",
+    "Project explanation practice",
+    "SQL or Linux practice"
+  ]
+}
+

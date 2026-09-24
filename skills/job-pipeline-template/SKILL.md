@@ -47,7 +47,7 @@ High-value paths:
 - `scripts/update_feishu.py`, `scripts/send_alert.py`: Feishu sync and alerting
 - `config/scoring.yaml`: weighting and penalty rules
 - `config/*.example.yaml`: publish-safe config templates
-- `cv/materials/`: placeholder resume and cover-letter content
+- `cv/materials/`: the single human-maintained candidate-fact and resume-material source
 
 ## Common Tasks
 

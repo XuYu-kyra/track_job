@@ -1,0 +1,16 @@
+{
+  "as_of": "2026-08-23",
+  "counts": {
+    "MUST_APPLY": 0,
+    "READY": 0,
+    "HOLD": 0,
+    "WATCH": 2,
+    "REJECT": 2
+  },
+  "expected_rules": [
+    "The urgent robotics lead remains WATCH until canonical open/full-JD verification.",
+    "The secondary TestDev lead remains WATCH until canonical verification.",
+    "The security-sensitive role is rejected for mobility/security constraints.",
+    "The senior algorithm role is rejected by the new-grad eligibility gate."
+  ]
+}

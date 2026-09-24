@@ -1,0 +1,21 @@
+{
+  "company": "Example Robotics",
+  "role_family": "robot_software",
+  "interviewed_at": "2026-09-01",
+  "round": "technical_1",
+  "team": "Robot Platform",
+  "manager_signal": "unknown",
+  "questions": [
+    {
+      "question": "Explain the difference between a process and a thread.",
+      "topic": "operating_system",
+      "result": "stuck on memory isolation details"
+    },
+    {
+      "question": "How did you validate failures in your robotics project?",
+      "topic": "project",
+      "result": "good, clear testing example"
+    }
+  ],
+  "notes": "Add the weak OS topic to the next 72-hour preparation block."
+}

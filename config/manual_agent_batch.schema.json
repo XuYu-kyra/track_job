@@ -1,0 +1,143 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "mode", "source", "batch", "candidates"],
+  "properties": {
+    "schema_version": {"type": "integer", "enum": [3]},
+    "mode": {"type": "string", "enum": ["MANUAL_AGENT"]},
+    "source": {"type": "string", "enum": ["gpt_web"]},
+    "batch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "batch_id", "plan_id", "generated_at", "search_date", "queries", "source_urls",
+        "max_age_days", "expires_at", "searches"
+      ],
+      "properties": {
+        "batch_id": {"type": "string"},
+        "plan_id": {"type": "string"},
+        "generated_at": {"type": "string"},
+        "search_date": {"type": "string"},
+        "queries": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 128,
+          "items": {"type": "string"}
+        },
+        "source_urls": {
+          "type": "array",
+          "maxItems": 512,
+          "items": {"type": "string", "pattern": "^https?://"}
+        },
+        "max_age_days": {"type": "integer", "minimum": 1, "maximum": 2},
+        "expires_at": {"type": "string"},
+        "searches": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 128,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+              "required": [
+                "plan_id", "query_id", "lane", "query", "provider", "started_at", "completed_at",
+                "status", "source_urls", "result_count", "error_category", "retry_count", "notes",
+                "terminal_state", "page_types", "search_calls", "open_calls", "hop_count", "run_seconds",
+                "transition_log"
+              ],
+            "properties": {
+              "plan_id": {"type": "string"},
+              "query_id": {"type": "string"},
+              "lane": {"type": "string"},
+              "query": {"type": "string"},
+              "provider": {"type": "string"},
+              "started_at": {"type": "string"},
+              "completed_at": {"type": "string"},
+              "status": {"type": "string", "enum": ["SUCCESS", "EMPTY_VALID", "FAILED", "RATE_LIMITED", "CAPTCHA", "PARSE_ERROR", "TIMEOUT"]},
+              "source_urls": {
+                "type": "array",
+                "maxItems": 30,
+                "items": {"type": "string", "pattern": "^https?://"}
+              },
+              "result_count": {"type": "integer", "minimum": 0},
+              "error_category": {"type": "string"},
+              "retry_count": {"type": "integer", "minimum": 0},
+              "notes": {"type": "string"},
+              "terminal_state": {"type": "string", "enum": ["ROLE_FOUND", "NO_RESULT_CONFIRMED", "BLOCKED", "NEEDS_REVIEW"]},
+              "page_types": {"type": "array", "maxItems": 20, "items": {"type": "string"}},
+              "search_calls": {"type": "integer", "minimum": 0, "maximum": 3},
+              "open_calls": {"type": "integer", "minimum": 0, "maximum": 8},
+              "hop_count": {"type": "integer", "minimum": 0, "maximum": 3},
+              "run_seconds": {"type": "integer", "minimum": 0, "maximum": 300},
+              "transition_log": {
+                "type": "array",
+                "maxItems": 16,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["state", "reason"],
+                  "properties": {
+                    "state": {"type": "string"},
+                    "reason": {"type": "string"}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "candidates": {
+      "type": "array",
+      "maxItems": 128,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "company", "title", "location", "source_url", "source_name", "source_type",
+          "posted_at", "deadline", "status", "description", "source_evidence",
+          "graduation_evidence", "role_evidence", "location_evidence", "discovery_query", "discovery_query_id",
+          "discovered_at", "evidence_confidence", "notes", "job_language",
+          "recruiting_context", "canonical_url"
+        ],
+        "properties": {
+          "company": {"type": "string"},
+          "title": {"type": "string"},
+          "location": {"type": "string"},
+          "source_url": {"type": "string", "pattern": "^https?://"},
+          "source_name": {"type": "string"},
+          "source_type": {"type": "string"},
+          "posted_at": {"type": ["string", "null"]},
+          "deadline": {"type": ["string", "null"]},
+          "status": {"type": ["string", "null"]},
+          "description": {"type": "string"},
+          "source_evidence": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 12,
+            "items": {"type": "string"}
+          },
+          "graduation_evidence": {
+            "type": "array", "maxItems": 12,
+            "items": {"type": "string"}
+          },
+          "role_evidence": {
+            "type": "array", "maxItems": 12,
+            "items": {"type": "string"}
+          },
+          "location_evidence": {
+            "type": "array", "maxItems": 12,
+            "items": {"type": "string"}
+          },
+          "discovery_query": {"type": "string"},
+          "discovery_query_id": {"type": "string"},
+          "discovered_at": {"type": "string"},
+          "evidence_confidence": {"type": "string", "enum": ["High", "Medium", "Low"]},
+          "notes": {"type": "string"},
+          "job_language": {"type": "string", "enum": ["ZH", "EN", "BOTH", "UNKNOWN"]},
+          "recruiting_context": {"type": "string"},
+          "canonical_url": {"type": ["string", "null"]}
+        }
+      }
+    }
+  }
+}

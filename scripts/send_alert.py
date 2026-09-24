@@ -8,11 +8,6 @@ from datetime import datetime
 from pathlib import Path
 
 try:
-    from common import load_config
-except ModuleNotFoundError:
-    from scripts.common import load_config
-
-try:
     from update_feishu import (
         FeishuConfig,
         feishu_request,
@@ -48,19 +43,22 @@ def build_alert_fields(
     details: str,
     log_token: str = "",
 ) -> dict:
-    alerts_cfg = load_config("config/feishu.yaml").get("alerts", {})
+    alerts_cfg = config.alerts
     company_value = alerts_cfg.get("company_label", "[Pipeline Alert]")
     status_value = alerts_cfg.get("status", "Need Review")
     position_text = f"{datetime.now().strftime('%Y-%m-%d %H:%M')} {summary}"
     if details:
         position_text = f"{position_text} | {details[:120]}"
 
-    fields = {
-        config.fields["company"]: company_value,
-        config.fields["position"]: position_text,
-        config.fields["status"]: status_value,
-        config.fields["matching_score"]: 0,
-    }
+    title_field = config.fields.get("title") or config.fields.get("position")
+    score_field = config.fields.get("opportunity_value") or config.fields.get("matching_score")
+    fields = {config.fields["company"]: company_value}
+    if title_field:
+        fields[title_field] = position_text
+    if config.fields.get("status"):
+        fields[config.fields["status"]] = status_value
+    if score_field:
+        fields[score_field] = 0
     cover_field = config.fields.get("cover_letter")
     if cover_field and log_token and field_definitions.get(cover_field, {}).get("ui_type") == "Attachment":
         fields[cover_field] = [{"file_token": log_token}]
@@ -69,7 +67,7 @@ def build_alert_fields(
 
 def send_pipeline_alert(config_path: str, summary: str, details: str = "", log_file: str = "") -> None:
     config = load_feishu_config(config_path)
-    alerts_cfg = load_config(config_path).get("alerts", {})
+    alerts_cfg = config.alerts
     if not alerts_cfg.get("enabled", True):
         return
 

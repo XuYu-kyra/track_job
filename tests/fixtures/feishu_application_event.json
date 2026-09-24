@@ -1,0 +1,15 @@
+{
+  "schema": "2.0",
+  "header": {"event_id": "evt-example-application"},
+  "event": {
+    "sender": {"sender_id": {"open_id": "ou-example"}},
+    "message": {
+      "message_id": "om-example-application",
+      "chat_id": "oc-example",
+      "chat_type": "p2p",
+      "message_type": "text",
+      "create_time": "2026-09-23T09:00:00+08:00",
+      "content": "{\"text\":\"公司：Example Co 职位：后端开发 地点：深圳 https://example.test/jobs/1\"}"
+    }
+  }
+}

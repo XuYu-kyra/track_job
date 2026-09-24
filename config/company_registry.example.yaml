@@ -1,0 +1,415 @@
+company_defaults:
+  enabled: true
+  aliases: []
+  location_tags:
+    - Shenzhen
+  role_fit_tags: []
+  official_career_url: null
+  ats_family: UNKNOWN
+  monitor_mode: PUBLIC_SEARCH
+  current_2027_status: UNKNOWN
+  evidence_confidence: UNKNOWN
+  last_verified: null
+
+companies:
+  - name: Tencent
+    monitor_priority: P0
+  - name: Tencent Music Entertainment
+    monitor_priority: P0
+  - name: Huawei
+    monitor_priority: P0
+  - name: ByteDance
+    monitor_priority: P0
+  - name: Shopee
+    monitor_priority: P0
+  - name: SHEIN
+    monitor_priority: P0
+  - name: Amazon
+    monitor_priority: P0
+  - name: NVIDIA
+    monitor_priority: P0
+  - name: Xiaomi
+    monitor_priority: P0
+  - name: DJI
+    monitor_priority: P0
+  - name: OPPO
+    monitor_priority: P0
+  - name: Honor
+    monitor_priority: P0
+  - name: ZTE
+    monitor_priority: P0
+  - name: TP-LINK
+    monitor_priority: P0
+  - name: Insta360
+    monitor_priority: P0
+  - name: Anker Innovations
+    monitor_priority: P0
+  - name: EcoFlow
+    monitor_priority: P0
+  - name: Shokz
+    monitor_priority: P0
+  - name: Skyworth
+    monitor_priority: P0
+  - name: Goodix
+    monitor_priority: P0
+  - name: Mindray
+    monitor_priority: P0
+  - name: SF Technology
+    monitor_priority: P0
+  - name: Xunlei
+    monitor_priority: P0
+  - name: Sangfor
+    monitor_priority: P0
+  - name: Sundray
+    monitor_priority: P0
+  - name: CMB Network Technology
+    monitor_priority: P0
+  - name: Ping An Technology
+    monitor_priority: P0
+  - name: Shenzhen Kingdom Sci-Tech
+    monitor_priority: P0
+  - name: Aspire / 卓望数码
+    aliases:
+      - Aspire
+      - 卓望数码
+    monitor_priority: P0
+  - name: Wondershare
+    monitor_priority: P0
+  - name: Pudu Robotics
+    monitor_priority: P0
+  - name: UBTECH
+    monitor_priority: P0
+  - name: RoboSense
+    monitor_priority: P0
+  - name: MINIEYE
+    monitor_priority: P0
+  - name: Gudsen / MOZA
+    aliases:
+      - Gudsen
+      - MOZA
+    monitor_priority: P0
+  - name: 3irobotix / 杉川机器人
+    aliases:
+      - 3irobotix
+      - 杉川机器人
+    monitor_priority: P0
+  - name: Jingzhida / 精智达
+    aliases:
+      - Jingzhida
+      - 精智达
+    monitor_priority: P0
+  - name: Reolink
+    monitor_priority: P0
+  - name: Pango Micro / 紫光同创
+    aliases:
+      - Pango Micro
+      - 紫光同创
+    monitor_priority: P0
+
+  - name: Apple
+    monitor_priority: P1
+  - name: ASML
+    monitor_priority: P1
+  - name: Siemens Healthineers
+    monitor_priority: P1
+  - name: HSBC Technology China
+    monitor_priority: P1
+  - name: Flex
+    monitor_priority: P1
+  - name: Synopsys
+    monitor_priority: P1
+  - name: Vertiv
+    monitor_priority: P1
+  - name: Keysight
+    monitor_priority: P1
+  - name: Cadence
+    monitor_priority: P1
+  - name: Qualcomm
+    monitor_priority: P1
+  - name: Bosch
+    monitor_priority: P1
+  - name: NXP
+    monitor_priority: P1
+  - name: Lumentum
+    monitor_priority: P1
+  - name: Schneider Electric
+    monitor_priority: P1
+  - name: ABB
+    monitor_priority: P1
+  - name: Emerson
+    monitor_priority: P1
+  - name: Jabil
+    monitor_priority: P1
+  - name: TE Connectivity
+    monitor_priority: P1
+  - name: onsemi
+    monitor_priority: P1
+  - name: Philips
+    monitor_priority: P1
+  - name: HKEX Technology Shenzhen
+    monitor_priority: P1
+  - name: WeBank
+    monitor_priority: P1
+  - name: Futu
+    monitor_priority: P1
+  - name: Kingdee
+    monitor_priority: P1
+  - name: Lalamove
+    monitor_priority: P1
+  - name: Orbbec
+    monitor_priority: P1
+  - name: DOBOT
+    monitor_priority: P1
+  - name: UGREEN
+    monitor_priority: P1
+  - name: Hytera
+    monitor_priority: P1
+  - name: Emdoor
+    monitor_priority: P1
+
+sources:
+  official:
+    source_name: official
+    tier: 1
+    discovery_priority: HIGH
+    automation_mode: AUTO
+    evidence_confidence: HIGH
+    canonicality: CANONICAL
+    source_family: official_monitor
+    adapter: official_public_page
+    automation_level: registered_public_page
+    confidence: high
+    implementation_status: automated_if_registered
+    enabled: true
+    output: data/job_cache/official_jobs.json
+    campus_context: false
+    terms_access_notes: "Registered public career pages only; respect access limits and site terms."
+  ats:
+    source_name: official_ats
+    tier: 1
+    discovery_priority: HIGH
+    automation_mode: PUBLIC_SEARCH
+    evidence_confidence: HIGH
+    canonicality: CANONICAL
+    source_family: official_ats
+    adapter: ats_family_detection
+    automation_level: public_page
+    confidence: high
+    implementation_status: detection_and_generic_public
+    enabled: true
+    campus_context: false
+    terms_access_notes: "URL detection plus generic public parsing; dedicated adapters are extension points."
+  university_careers:
+    source_name: university_page
+    tier: 2
+    discovery_priority: HIGH
+    automation_mode: PUBLIC_SEARCH
+    evidence_confidence: HIGH
+    canonicality: SECONDARY
+    source_family: university_page
+    adapter: gpt_manual_json
+    automation_level: public_search
+    confidence: high
+    implementation_status: manual_agent_search
+    enabled: true
+    campus_context: true
+    terms_access_notes: "Public search only."
+  nowcoder:
+    source_name: nowcoder
+    tier: 2
+    discovery_priority: HIGH
+    automation_mode: PUBLIC_SEARCH
+    evidence_confidence: MEDIUM
+    canonicality: SECONDARY
+    source_family: china_public_jobs
+    adapter: gpt_manual_json
+    automation_level: public_search
+    confidence: medium
+    implementation_status: manual_agent_search
+    enabled: true
+    campus_context: true
+    terms_access_notes: "Public search where accessible; no login automation."
+  ncss:
+    source_name: ncss
+    tier: 2
+    discovery_priority: HIGH
+    automation_mode: PUBLIC_SEARCH
+    evidence_confidence: HIGH
+    canonicality: SECONDARY
+    source_family: china_public_jobs
+    adapter: gpt_manual_json
+    automation_level: public_search
+    confidence: high
+    implementation_status: manual_agent_search
+    enabled: true
+    campus_context: true
+    terms_access_notes: "Public search where accessible; manual fallback."
+  guopin:
+    source_name: guopin
+    tier: 2
+    discovery_priority: HIGH
+    automation_mode: PUBLIC_SEARCH
+    evidence_confidence: MEDIUM
+    canonicality: SECONDARY
+    source_family: china_public_jobs
+    adapter: gpt_manual_json
+    automation_level: public_search
+    confidence: medium
+    implementation_status: manual_agent_search
+    enabled: true
+    campus_context: true
+    terms_access_notes: "Public search where accessible; manual fallback."
+  public_web:
+    source_name: public_web
+    tier: 2
+    discovery_priority: HIGH
+    automation_mode: PUBLIC_SEARCH
+    evidence_confidence: MEDIUM
+    canonicality: SECONDARY
+    source_family: general_public_web
+    adapter: gpt_manual_json
+    automation_level: public_search
+    confidence: medium
+    implementation_status: manual_agent_search
+    enabled: true
+    campus_context: false
+    terms_access_notes: "Long-tail public web discovery; canonical verification preferred."
+  gpt_web:
+    source_name: gpt_web
+    tier: 2
+    discovery_priority: HIGH
+    automation_mode: PUBLIC_SEARCH
+    evidence_confidence: MEDIUM
+    canonicality: SECONDARY
+    source_family: gpt_web
+    adapter: gpt_manual_json
+    automation_level: manual_agent
+    confidence: medium
+    implementation_status: manual_agent
+    enabled: true
+    output: data/job_cache/gpt_manual_jobs.json
+    campus_context: false
+    terms_access_notes: "Cursor/Codex public-web research; local JSON only; no paid API."
+  linkedin:
+    source_name: linkedin
+    tier: 3
+    discovery_priority: MEDIUM
+    automation_mode: AUTO
+    evidence_confidence: MEDIUM
+    canonicality: SECONDARY
+    source_family: linkedin
+    adapter: linkedin_guest
+    automation_level: public_guest
+    confidence: medium
+    implementation_status: automated
+    enabled: true
+    output: data/job_cache/linkedin_jobs.json
+    campus_context: false
+    terms_access_notes: "Bounded public guest endpoint; supplemental only."
+  indeed:
+    source_name: indeed
+    tier: 3
+    discovery_priority: MEDIUM
+    automation_mode: AUTO
+    evidence_confidence: MEDIUM
+    canonicality: SECONDARY
+    source_family: indeed
+    adapter: indeed_public
+    automation_level: public_page
+    confidence: medium
+    implementation_status: automated
+    enabled: false
+    output: data/job_cache/indeed_jobs.json
+    campus_context: false
+    terms_access_notes: "Bounded public page only; stop on blocking."
+  boss:
+    source_name: boss
+    tier: 4
+    discovery_priority: HIGH
+    automation_mode: MANUAL
+    evidence_confidence: MEDIUM
+    canonicality: SECONDARY
+    source_family: manual_boss
+    adapter: manual_inbox
+    automation_level: human_in_the_loop
+    confidence: medium
+    implementation_status: manual_no_crawler
+    enabled: true
+    campus_context: false
+    terms_access_notes: "No crawler, browser/login automation, CAPTCHA solving, or session scraping."
+  wechat:
+    source_name: wechat
+    tier: 4
+    discovery_priority: HIGH
+    automation_mode: MANUAL
+    evidence_confidence: MEDIUM
+    canonicality: SECONDARY
+    source_family: manual_wechat
+    adapter: manual_inbox
+    automation_level: human_in_the_loop
+    confidence: medium
+    implementation_status: manual_no_crawler
+    enabled: true
+    campus_context: true
+    terms_access_notes: "Copy URL/JD manually; official accounts may carry stronger evidence."
+  manual:
+    source_name: other_manual
+    tier: 4
+    discovery_priority: MEDIUM
+    automation_mode: MANUAL
+    evidence_confidence: MEDIUM
+    canonicality: SECONDARY
+    source_family: other_manual
+    adapter: manual_inbox
+    automation_level: human_in_the_loop
+    confidence: medium
+    implementation_status: automated_import
+    enabled: true
+    output: data/job_cache/manual_import_jobs.json
+    campus_context: false
+    terms_access_notes: "Human-provided URL/JD; downstream verification and scoring required."
+  glassdoor:
+    source_name: glassdoor
+    tier: 4
+    discovery_priority: LOW
+    automation_mode: MANUAL
+    evidence_confidence: LOW
+    canonicality: NON_CANONICAL
+    source_family: lifestyle_evidence
+    adapter: manual_inbox
+    automation_level: manual
+    confidence: low
+    implementation_status: manual_evidence_only
+    enabled: true
+    campus_context: false
+    terms_access_notes: "Lifestyle/WLB evidence only; not canonical job truth."
+  maimai:
+    source_name: maimai
+    tier: 4
+    discovery_priority: LOW
+    automation_mode: MANUAL
+    evidence_confidence: LOW
+    canonicality: NON_CANONICAL
+    source_family: lifestyle_evidence
+    adapter: manual_inbox
+    automation_level: manual
+    confidence: low
+    implementation_status: manual_evidence_only
+    enabled: true
+    campus_context: false
+    terms_access_notes: "Lifestyle/WLB evidence only; not canonical job truth."
+  kanzhun:
+    source_name: kanzhun
+    tier: 4
+    discovery_priority: LOW
+    automation_mode: MANUAL
+    evidence_confidence: LOW
+    canonicality: NON_CANONICAL
+    source_family: lifestyle_evidence
+    adapter: manual_inbox
+    automation_level: manual
+    confidence: low
+    implementation_status: manual_evidence_only
+    enabled: true
+    campus_context: false
+    terms_access_notes: "Lifestyle/WLB evidence only; not canonical job truth."
