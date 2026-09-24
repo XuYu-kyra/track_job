@@ -1,0 +1,45 @@
+[
+  {
+    "company": "Example Robotics",
+    "position": "2027 Robotics Software Engineer",
+    "location": "深圳",
+    "source": "official",
+    "url": "https://careers.example.com/jobs/robot-2027",
+    "job_id": "robot-2027",
+    "date": "2026-08-22",
+    "deadline": "2026-08-24",
+    "dream_role": true,
+    "description": "2027届校招。Build ROS2 robot software with C++, Python, Linux, simulation, testing and validation. Core R&D platform. 招满即止，提供弹性工作与年假。"
+  },
+  {
+    "company": "Example Cloud",
+    "position": "测试开发工程师（2027届）",
+    "location": "Shenzhen",
+    "source": "manual",
+    "url": "https://jobs.example.com/testdev-2027",
+    "job_id": "testdev-2027",
+    "date": "2026-08-20",
+    "description": "负责 Python 自动化测试、pytest、API validation、Linux debugging 与 CI/CD 工程效能平台。"
+  },
+  {
+    "company": "Example AI",
+    "position": "Senior AI Algorithm Engineer",
+    "location": "Shanghai",
+    "source": "linkedin",
+    "url": "https://linkedin.com/jobs/view/12345678",
+    "job_id": "12345678",
+    "date": "2026-08-21",
+    "description": "Lead foundation model training and recommendation algorithm research."
+  },
+  {
+    "company": "Example Secure Systems",
+    "position": "2027 Software Engineer",
+    "location": "深圳",
+    "source": "official",
+    "url": "https://secure.example.com/jobs/2027-swe",
+    "job_id": "secure-swe",
+    "date": "2026-08-21",
+    "description": "岗位涉密，入职后实行护照管理和私人出境审批。"
+  }
+]
+

@@ -1,0 +1,370 @@
+schema_version: "1.0"
+
+defaults:
+  language: AUTO
+  variant: no_photo
+  allow_english_photo_fallback: false
+  tailoring:
+    minimum_preserved_ratio: 0.70
+    maximum_changed_ratio: 0.30
+    normal_replacement_min: 2
+    normal_replacement_max: 4
+  density_tolerance:
+    vertical_span_below: 0.04
+    vertical_span_above: 0.02
+    line_delta: 8
+    content_ratio_below: 0.80
+    content_ratio_above: 1.20
+
+role_mapping:
+  ai_application: ai
+  robot_software: robot
+  test_development: test
+  general_software: se
+  backend: se
+  fintech_backend: se
+  fintech_tech: se
+  data_engineering: se
+  platform_sre: se
+  engineering_tools: se
+  software_automation: se
+  developer_productivity: se
+  data_platform_sre: se
+
+bases:
+  ai.cn.no_photo.v1:
+    base_id: ai.cn.no_photo.v1
+    role_base: ai
+    language: CN
+    photo_variant: no_photo
+    source_zip: cv/ai_cn_xuyu.zip
+    normalized_template_dir: cv/templates/bases/ai/cn/no_photo/v1
+    source_sha256: d4389adc05f4c838fdbbe1f6af0449e02c2e87ff4d979fecef13274e00604a4d
+    template_version: v1
+    expected_assets: [main.tex]
+    section_order: [education, skills, experience, projects]
+    benchmark_metrics:
+      page_count: 1
+      page_width: 595.28
+      page_height: 841.89
+      first_text_y: 20.63
+      last_text_y: 811.443
+      text_vertical_span_ratio: 0.9393
+      non_empty_line_count: 76
+      cjk_character_count: 1082
+      english_word_count: 72
+      text_out_of_bounds: false
+      text_overlap_detected: false
+      text_clipped: false
+      image_count: 0
+      required_image_present: true
+      font_substitution: WSL_ONLY
+    enabled: true
+  ai.cn.photo.v1:
+    base_id: ai.cn.photo.v1
+    role_base: ai
+    language: CN
+    photo_variant: photo
+    source_zip: cv/ai_cn_hs_xuyu.zip
+    normalized_template_dir: cv/templates/bases/ai/cn/photo/v1
+    source_sha256: edc8e71181c9dc1edf05f1cd9b7d802d9d7834e92d6fc2e5af8ce4067af723ba
+    template_version: v1
+    expected_assets: [main.tex, headshot.jpg]
+    section_order: [education, skills, experience, projects]
+    benchmark_metrics:
+      page_count: 1
+      page_width: 595.28
+      page_height: 841.89
+      first_text_y: 27.443
+      last_text_y: 802.992
+      text_vertical_span_ratio: 0.9212
+      non_empty_line_count: 76
+      cjk_character_count: 1082
+      english_word_count: 72
+      text_out_of_bounds: false
+      text_overlap_detected: false
+      text_clipped: false
+      image_count: 1
+      required_image_present: true
+      font_substitution: WSL_ONLY
+    enabled: true
+  ai.en.no_photo.v1:
+    base_id: ai.en.no_photo.v1
+    role_base: ai
+    language: EN
+    photo_variant: no_photo
+    source_zip: cv/ai_en_xuyu.zip
+    normalized_template_dir: cv/templates/bases/ai/en/no_photo/v1
+    source_sha256: a793a2701814f472258f20cefc41745bb281b6bb2375aa39cf4389b3d604a563
+    template_version: v1
+    expected_assets: [main.tex]
+    section_order: [education, skills, experience, projects]
+    benchmark_metrics:
+      page_count: 1
+      page_width: 595.28
+      page_height: 841.89
+      first_text_y: 24.857
+      last_text_y: 788.886
+      text_vertical_span_ratio: 0.9075
+      non_empty_line_count: 78
+      cjk_character_count: 0
+      english_word_count: 551
+      text_out_of_bounds: false
+      text_overlap_detected: false
+      text_clipped: false
+      image_count: 0
+      required_image_present: true
+      font_substitution: WSL_ONLY
+    enabled: true
+  robot.cn.no_photo.v1:
+    base_id: robot.cn.no_photo.v1
+    role_base: robot
+    language: CN
+    photo_variant: no_photo
+    source_zip: cv/robot_cn_xuyu.zip
+    normalized_template_dir: cv/templates/bases/robot/cn/no_photo/v1
+    source_sha256: 1ae03692742f820366e00962de88e33222d2eca91c34c5e3562657c410fc908b
+    template_version: v1
+    expected_assets: [main.tex]
+    section_order: [education, skills, experience, projects]
+    benchmark_metrics:
+      page_count: 1
+      page_width: 595.28
+      page_height: 841.89
+      first_text_y: 19.191
+      last_text_y: 789.47
+      text_vertical_span_ratio: 0.9149
+      non_empty_line_count: 73
+      cjk_character_count: 908
+      english_word_count: 112
+      text_out_of_bounds: false
+      text_overlap_detected: false
+      text_clipped: false
+      image_count: 0
+      required_image_present: true
+      font_substitution: "WSL_ONLY"
+    enabled: true
+  robot.cn.photo.v1:
+    base_id: robot.cn.photo.v1
+    role_base: robot
+    language: CN
+    photo_variant: photo
+    source_zip: cv/robot_cn_hs_xuyu.zip
+    normalized_template_dir: cv/templates/bases/robot/cn/photo/v1
+    source_sha256: 749d0c390c87a9f613fc9d0fabae120d8fddb8c0a0930df9669a35cf21ea79bc
+    template_version: v1
+    expected_assets: [main.tex, headshot.jpg]
+    section_order: [education, skills, experience, projects]
+    benchmark_metrics:
+      page_count: 1
+      page_width: 595.28
+      page_height: 841.89
+      first_text_y: 27.443
+      last_text_y: 799.991
+      text_vertical_span_ratio: 0.9176
+      non_empty_line_count: 73
+      cjk_character_count: 908
+      english_word_count: 112
+      text_out_of_bounds: false
+      text_overlap_detected: false
+      text_clipped: false
+      image_count: 1
+      required_image_present: true
+      font_substitution: "WSL_ONLY"
+    enabled: true
+  robot.en.no_photo.v1:
+    base_id: robot.en.no_photo.v1
+    role_base: robot
+    language: EN
+    photo_variant: no_photo
+    source_zip: cv/robot_en_xuyu.zip
+    normalized_template_dir: cv/templates/bases/robot/en/no_photo/v1
+    source_sha256: 6af05c4da2848e0dcd10ef2edd12e35dc748d7ba431dc1349d2aa2e34925bc31
+    template_version: v1
+    expected_assets: [main.tex]
+    section_order: [education, skills, experience, projects]
+    benchmark_metrics:
+      page_count: 1
+      page_width: 595.28
+      page_height: 841.89
+      first_text_y: 24.857
+      last_text_y: 754.415
+      text_vertical_span_ratio: 0.8666
+      non_empty_line_count: 75
+      cjk_character_count: 0
+      english_word_count: 563
+      text_out_of_bounds: false
+      text_overlap_detected: false
+      text_clipped: false
+      image_count: 0
+      required_image_present: true
+      font_substitution: "WSL_ONLY"
+    enabled: true
+  se.cn.no_photo.v1:
+    base_id: se.cn.no_photo.v1
+    role_base: se
+    language: CN
+    photo_variant: no_photo
+    source_zip: cv/se_cn_xuyu.zip
+    normalized_template_dir: cv/templates/bases/se/cn/no_photo/v1
+    source_sha256: 39c586c4bc4f4f1dae9695bbcc7b3d39e95cc297cced838ca5b8390e1664674e
+    template_version: v1
+    expected_assets: [main.tex]
+    section_order: [education, skills, experience, projects]
+    benchmark_metrics:
+      page_count: 1
+      page_width: 595.28
+      page_height: 841.89
+      first_text_y: 19.191
+      last_text_y: 805.013
+      text_vertical_span_ratio: 0.9334
+      non_empty_line_count: 77
+      cjk_character_count: 1115
+      english_word_count: 66
+      text_out_of_bounds: false
+      text_overlap_detected: false
+      text_clipped: false
+      image_count: 0
+      required_image_present: true
+      font_substitution: WSL_ONLY
+    enabled: true
+  se.cn.photo.v1:
+    base_id: se.cn.photo.v1
+    role_base: se
+    language: CN
+    photo_variant: photo
+    source_zip: cv/se_cn_hs_xuyu.zip
+    normalized_template_dir: cv/templates/bases/se/cn/photo/v1
+    source_sha256: 855115778f132e13a7c250c7d66692fba51312df1636786d960e1084cc54d9af
+    template_version: v1
+    expected_assets: [main.tex, headshot.jpg]
+    section_order: [education, skills, experience, projects]
+    benchmark_metrics:
+      page_count: 1
+      page_width: 595.28
+      page_height: 841.89
+      first_text_y: 27.443
+      last_text_y: 815.534
+      text_vertical_span_ratio: 0.9361
+      non_empty_line_count: 77
+      cjk_character_count: 1115
+      english_word_count: 66
+      text_out_of_bounds: false
+      text_overlap_detected: false
+      text_clipped: false
+      image_count: 1
+      required_image_present: true
+      font_substitution: WSL_ONLY
+    enabled: true
+  se.en.no_photo.v1:
+    base_id: se.en.no_photo.v1
+    role_base: se
+    language: EN
+    photo_variant: no_photo
+    source_zip: cv/se_en_xuyu.zip
+    normalized_template_dir: cv/templates/bases/se/en/no_photo/v1
+    source_sha256: e1ab2d1500c9a5964fd260ca71458f710ddc83353c05fe48eb37b2220ffb4486
+    template_version: v1
+    expected_assets: [main.tex]
+    section_order: [education, skills, experience, projects]
+    benchmark_metrics:
+      page_count: 1
+      page_width: 595.28
+      page_height: 841.89
+      first_text_y: 24.857
+      last_text_y: 778.72
+      text_vertical_span_ratio: 0.8954
+      non_empty_line_count: 77
+      cjk_character_count: 0
+      english_word_count: 551
+      text_out_of_bounds: false
+      text_overlap_detected: false
+      text_clipped: false
+      image_count: 0
+      required_image_present: true
+      font_substitution: WSL_ONLY
+    enabled: true
+  test.cn.no_photo.v1:
+    base_id: test.cn.no_photo.v1
+    role_base: test
+    language: CN
+    photo_variant: no_photo
+    source_zip: cv/test_cn_xuyu.zip
+    normalized_template_dir: cv/templates/bases/test/cn/no_photo/v1
+    source_sha256: 9dd8544096e8647c72d1b0962da402dce60efd2101fd16f834d3f9f729dded3c
+    template_version: v1
+    expected_assets: [main.tex]
+    section_order: [education, skills, experience, projects]
+    benchmark_metrics:
+      page_count: 1
+      page_width: 595.28
+      page_height: 841.89
+      first_text_y: 19.191
+      last_text_y: 792.593
+      text_vertical_span_ratio: 0.9186
+      non_empty_line_count: 76
+      cjk_character_count: 1100
+      english_word_count: 63
+      text_out_of_bounds: false
+      text_overlap_detected: false
+      text_clipped: false
+      image_count: 0
+      required_image_present: true
+      font_substitution: WSL_ONLY
+    enabled: true
+  test.cn.photo.v1:
+    base_id: test.cn.photo.v1
+    role_base: test
+    language: CN
+    photo_variant: photo
+    source_zip: cv/test_cn_hs_xuyu.zip
+    normalized_template_dir: cv/templates/bases/test/cn/photo/v1
+    source_sha256: acefb8af7a3bf5021ef336a1bc3cb8b9352db1028492693a30e8a8f77572076c
+    template_version: v1
+    expected_assets: [main.tex, headshot.jpg]
+    section_order: [education, skills, experience, projects]
+    benchmark_metrics:
+      page_count: 1
+      page_width: 595.28
+      page_height: 841.89
+      first_text_y: 27.443
+      last_text_y: 803.114
+      text_vertical_span_ratio: 0.9213
+      non_empty_line_count: 76
+      cjk_character_count: 1100
+      english_word_count: 63
+      text_out_of_bounds: false
+      text_overlap_detected: false
+      text_clipped: false
+      image_count: 1
+      required_image_present: true
+      font_substitution: WSL_ONLY
+    enabled: true
+  test.en.no_photo.v1:
+    base_id: test.en.no_photo.v1
+    role_base: test
+    language: EN
+    photo_variant: no_photo
+    source_zip: cv/test_en_xuyu.zip
+    normalized_template_dir: cv/templates/bases/test/en/no_photo/v1
+    source_sha256: 73ee26f588ba4d1a3d01caecaf776e9e671790ffb8c7d78b19ffe8f954b2fd84
+    template_version: v1
+    expected_assets: [main.tex]
+    section_order: [education, skills, experience, projects]
+    benchmark_metrics:
+      page_count: 1
+      page_width: 595.28
+      page_height: 841.89
+      first_text_y: 24.857
+      last_text_y: 766.942
+      text_vertical_span_ratio: 0.8815
+      non_empty_line_count: 76
+      cjk_character_count: 0
+      english_word_count: 550
+      text_out_of_bounds: false
+      text_overlap_detected: false
+      text_clipped: false
+      image_count: 0
+      required_image_present: true
+      font_substitution: WSL_ONLY
+    enabled: true

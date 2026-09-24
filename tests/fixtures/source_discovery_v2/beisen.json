@@ -1,0 +1,6 @@
+{
+  "pages": [
+    {"Code": 200, "Total": 3, "Data": [{"Id": "B1", "JobAdName": "软件开发工程师", "LocNames": ["深圳"], "Duty": "2027届 Python API 软件开发完整岗位说明与工程实践要求。"}, {"Id": "B2", "JobAdName": "测试开发工程师", "LocNames": ["深圳"], "Duty": "2027届 自动化测试 API Linux 完整岗位说明。"}]},
+    {"Code": 200, "Total": 3, "Data": [{"Id": "B3", "JobAdName": "机器人软件工程师", "LocNames": ["深圳"], "Duty": "2027届 ROS C++ Linux 机器人软件完整岗位说明。"}]}
+  ]
+}

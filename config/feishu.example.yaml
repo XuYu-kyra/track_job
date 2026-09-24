@@ -9,26 +9,94 @@ bitable:
 
 fields:
   company: Company
-  position: Position
-  url: URL
-  date: Date
-  status: Status
-  progress: Progress
+  title: Title
+  role_family: Role Family
+  location: Location
+  source: Sources
+  official_url: Official URL
+  job_id: Job ID
+  canonical_key: Canonical Key
+  first_seen: First Seen
+  last_verified: Last Verified
+  posted_at: Posted At
+  deadline: Deadline
+  status: Job Status
+  freshness: Freshness
+  technical_fit: Technical Fit
+  career_value: Career Value
+  skill_portability: Skill Portability
+  strategic_value: Strategic Value
+  opportunity_value: Opportunity Value
+  score_breakdown: Score Breakdown
+  compensation_signal: Compensation Signal
+  wlb_signal: WLB Signal
+  leave_usability: Leave Usability
+  mobility_autonomy: Mobility Autonomy
+  commute: Commute
+  on_call: On Call
+  actual_work_risks: Actual Work Risks
+  evidence_confidence: Evidence Confidence
+  evidence_count: Evidence Count
+  last_lifestyle_check: Last Lifestyle Check
+  notes: Notes
+  urgency: Urgency
+  scarcity: Scarcity
+  process_trigger_risk: Process Trigger Risk
+  application_cost: Application Cost
+  regret: Regret
+  release_priority: Release Priority
+  action_tier: Action Tier
+  action: Action
+  reject_reason: Reject Reason
+  resume_family: Resume Family
+  resume_version: Resume Version
   resume_draft: Resume Draft
   cover_letter: Cover Letter
-  matching_score: matching score
-  score_breakdown: score breakdown
+  applied_at: Applied At
+  stage: Stage
+  next_action: Next Action
+  next_deadline: Next Deadline
+  round: Round
+  team: Team
+  manager_signal: Manager Signal
+  questions: Questions
+  weak_topics: Weak Topics
+  debrief: Debrief
+  offer: Offer
 
 defaults:
-  status: Need Review
-  progress: ""
+  status: OPEN
+
+sync:
+  update_human_managed_fields: false
 
 attachments:
+  # Uploads happen only during an explicit update_feishu.py --apply run.
   upload_generated_files: true
   store_local_path_when_upload_disabled: false
 
 alerts:
   enabled: true
   company_label: "[Pipeline Alert]"
-  status: Need Review
+  status: OPEN
   attach_log_file: true
+
+# Optional bidirectional application inbox.  Keep the callback behind HTTPS
+# and configure the Feishu app's message/image scopes before enabling it.
+receiver:
+  store_path: data/job_cache/feishu_application_inbox.json
+  evidence_dir: data/job_cache/feishu_inbox_evidence
+  # Required for the live receiver: an empty list rejects every sender.
+  allowed_open_ids: []
+  record_link_template: "https://www.feishu.cn/base/{app_token}?table={table_id}&view={view_id}&record={record_id}"
+  # Optional OCR cleanup. Set DEEPSEEK_API_KEY in the process environment;
+  # the key is intentionally not stored in this file.
+  identity_enrichment:
+    enabled: true
+    provider: deepseek
+    base_url: https://api.deepseek.com
+    model: deepseek-flash
+    send_image: true
+    timeout_seconds: 20
+    max_retries: 1
+    max_input_chars: 12000

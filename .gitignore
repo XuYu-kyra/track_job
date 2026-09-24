@@ -1,13 +1,22 @@
 config/targets.yaml
 config/feishu.yaml
 config/profile.yaml
-
+config/execution.yaml
+config/company_registry.yaml
 data/job_cache/*.json
 data/job_cache/*.log
+data/job_cache/*.md
 data/job_cache/*.normalized.txt
+data/job_cache/manual_job_inputs.txt
+data/job_cache/semantic_reviews/
+data/candidate_repos/
+data/discovery/gpt_manual/*.json
 
 cv/generated/
 cv/*.pdf
+cv/*_xuyu.zip
+cv/templates/bases/
+.tools/
 
 scripts/__pycache__/
 *.pyc

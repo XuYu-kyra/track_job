@@ -18,6 +18,7 @@ def load_config(path: str | Path) -> dict[str, Any]:
     - nested mappings via indentation
     - lists
     - quoted and plain scalars
+    - simple inline scalar lists
     """
 
     text = Path(path).read_text(encoding="utf-8")
@@ -58,13 +59,18 @@ def normalize_whitespace(text: str) -> str:
 
 
 def normalize_token(text: str) -> str:
-    cleaned = normalize_whitespace(text).lower()
-    cleaned = re.sub(r"[^a-z0-9]+", " ", cleaned)
-    return normalize_whitespace(cleaned)
+    """Normalize text without discarding non-Latin company and role names."""
+
+    cleaned = normalize_whitespace(text).casefold()
+    cleaned = re.sub(r"[^\w]+", " ", cleaned, flags=re.UNICODE)
+    return normalize_whitespace(cleaned.replace("_", " "))
 
 
-def canonical_job_key(company: str, position: str) -> str:
-    return f"{normalize_token(company)}|{normalize_token(position)}"
+def canonical_job_key(company: str, position: str, location: str = "") -> str:
+    parts = [normalize_token(company), normalize_token(position)]
+    if location:
+        parts.append(normalize_token(location))
+    return "|".join(parts)
 
 
 def _prepare_lines(text: str) -> list[tuple[int, str]]:
@@ -120,7 +126,15 @@ def _parse_mapping(lines: list[tuple[int, str]], index: int, indent: int) -> tup
             mapping[key] = _parse_scalar(value)
             continue
 
-        if index >= len(lines) or lines[index][0] <= line_indent:
+        if index >= len(lines) or lines[index][0] < line_indent:
+            mapping[key] = {}
+            continue
+
+        # YAML permits a sequence value to use the same indentation as its
+        # parent mapping key (an "indentless sequence"). Materials exported by
+        # standard YAML tooling commonly use this form. A same-level mapping
+        # still means the current key has an empty value.
+        if lines[index][0] == line_indent and not lines[index][1].startswith("- "):
             mapping[key] = {}
             continue
 
@@ -150,7 +164,10 @@ def _parse_list(lines: list[tuple[int, str]], index: int, indent: int) -> tuple[
             items.append(nested)
             continue
 
-        if ":" in item_content:
+        if (
+            re.match(r"^[^:]+:(?:\s|$)", item_content)
+            and not item_content.startswith(("'", '"'))
+        ):
             key, _, value = item_content.partition(":")
             item_map: dict[str, Any] = {key.strip(): _parse_scalar(value.strip()) if value.strip() else {}}
             while index < len(lines):
@@ -174,6 +191,22 @@ def _parse_scalar(value: str) -> Any:
         return []
     if value == "{}":
         return {}
+    if value.startswith("[") and value.endswith("]"):
+        inner = value[1:-1].strip()
+        if not inner:
+            return []
+        if inner.startswith('"'):
+            try:
+                parsed = json.loads(value)
+            except json.JSONDecodeError:
+                parsed = None
+            if isinstance(parsed, list):
+                return parsed
+        # Human-readable one-sentence list items are commonly written inline.
+        # A terminal full stop keeps embedded commas inside that single item.
+        if inner.endswith("."):
+            return [_parse_scalar(inner)]
+        return [_parse_scalar(item.strip()) for item in inner.split(",") if item.strip()]
     if value.startswith('"') and value.endswith('"'):
         return value[1:-1]
     if value.startswith("'") and value.endswith("'"):

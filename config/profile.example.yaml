@@ -1,7 +1,33 @@
+default_profile: CN
+
+# Legacy identity remains for older templates and tools. Keep it equal to the
+# default profile, including identity.phone as the single primary phone.
 identity:
-  full_name: Your Name
-  email: you@example.com
-  phone: "+44 0000 000000"
+  full_name: Your Chinese Name
+  email: cn-you@example.com
+  phone: "+86 10000000000"
+  alternate_phone: ""
+  github_url: "https://github.com/your-account"
   linkedin_url: "https://www.linkedin.com/in/your-profile"
   portfolio_url: "https://your-portfolio.example.com"
-  closing_name: Your Name
+  closing_name: Your English Name
+
+profiles:
+  CN:
+    full_name: Your Chinese Name
+    email: cn-you@example.com
+    phone: "+86 10000000000"
+    alternate_phone: ""
+    github_url: "https://github.com/your-account"
+    linkedin_url: "https://www.linkedin.com/in/your-profile"
+    portfolio_url: "https://your-portfolio.example.com"
+    closing_name: Your English Name
+  INTL:
+    full_name: Your English Name
+    email: intl-you@example.com
+    phone: "+852 50000000"
+    alternate_phone: "+44 7000000000"
+    github_url: "https://github.com/your-account"
+    linkedin_url: "https://www.linkedin.com/in/your-profile"
+    portfolio_url: "https://your-portfolio.example.com"
+    closing_name: Your English Name

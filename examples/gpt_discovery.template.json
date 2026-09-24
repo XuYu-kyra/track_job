@@ -1,0 +1,27 @@
+{
+  "schema_version": 2,
+  "mode": "MANUAL_AGENT",
+  "source": "gpt_web",
+  "batch": {
+    "batch_id": "shenzhen-2027-YYYY-MM-DD-01",
+    "generated_at": "YYYY-MM-DDTHH:MM:SS+08:00",
+    "search_date": "YYYY-MM-DD",
+    "queries": [
+      "深圳 2027 测试开发 校招"
+    ],
+    "source_urls": [],
+    "searches": [
+      {
+        "query": "深圳 2027 测试开发 校招",
+        "executed_at": "YYYY-MM-DDTHH:MM:SS+08:00",
+        "status": "EMPTY_VALID",
+        "source_urls": [],
+        "result_count": 0,
+        "notes": "Search executed; no sufficiently supported candidate found."
+      }
+    ],
+    "max_age_days": 1,
+    "expires_at": "YYYY-MM-DD"
+  },
+  "candidates": []
+}

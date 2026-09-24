@@ -1,5 +1,11 @@
 \documentclass[a4paper,11pt]{article}
 
+\usepackage{iftex}
+\ifXeTeX
+  \usepackage{fontspec}
+  \usepackage{xeCJK}
+  \setCJKmainfont[BoldFont=FandolSong-Bold.otf]{FandolSong-Regular.otf}
+\fi
 \usepackage[empty]{fullpage}
 \usepackage{titlesec}
 \usepackage{enumitem}
@@ -27,13 +33,7 @@
 
 \begin{center}
     {\LARGE \textbf{{{FULL_NAME}}}}\\[4pt]
-    \href{mailto:{{EMAIL}}}{{EMAIL}}
-    \;|\;
-    {{PHONE}}
-    \;|\;
-    \href{{LINKEDIN_URL}}{LinkedIn}
-    \;|\;
-    \href{{PORTFOLIO_URL}}{Portfolio}
+    {{CONTACT_LINE}}
 \end{center}
 
 \section{Education}

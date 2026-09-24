@@ -1,0 +1,83 @@
+schema_version: "1.0"
+
+# These manifests identify the evidence-addressable subset of each approved
+# Golden Base. Source slots without a safe cv/materials mapping stay excluded
+# and are reported for manual review; approved ZIP wording is never trusted by
+# location alone.
+roles:
+  ai:
+    plan_role: ai_application
+    education_entries: [EDU_MSC_ROBOTICS, EDU_HKU_EXCHANGE, EDU_XMU_BENG]
+    experience_entries:
+      - material_id: designlibro_ai_data_intern
+        source_slots: 5
+        rendered_slots: 4
+    project_entries:
+      - material_id: historical_dialogue_rag
+        source_slots: 4
+        rendered_slots: 3
+      - material_id: campus_job_pipeline
+        source_slots: 4
+        rendered_slots: 3
+      - material_id: msc_navigation_reliability
+        source_slots: 3
+        rendered_slots: 3
+    reserve_projects: [petcare_ai]
+    skill_groups: [ai_application, general_software, test_development]
+  robot:
+    plan_role: robot_software
+    education_entries: [EDU_MSC_ROBOTICS, EDU_HKU_EXCHANGE, EDU_XMU_BENG]
+    experience_entries:
+      - material_id: designlibro_ai_data_intern
+        source_slots: 5
+        rendered_slots: 4
+    project_entries:
+      - material_id: msc_navigation_reliability
+        source_slots: 4
+        rendered_slots: 4
+      - material_id: ros2_colour_blob_perception
+        source_slots: 4
+        rendered_slots: 3
+      - material_id: campus_job_pipeline
+        source_slots: 3
+        rendered_slots: 3
+    reserve_projects: [historical_dialogue_rag]
+    skill_groups: [robot_software, test_development, general_software]
+  se:
+    plan_role: general_software
+    education_entries: [EDU_MSC_ROBOTICS, EDU_HKU_EXCHANGE, EDU_XMU_BENG]
+    experience_entries:
+      - material_id: designlibro_ai_data_intern
+        source_slots: 5
+        rendered_slots: 4
+    project_entries:
+      - material_id: campus_job_pipeline
+        source_slots: 4
+        rendered_slots: 3
+      - material_id: historical_dialogue_rag
+        source_slots: 4
+        rendered_slots: 3
+      - material_id: msc_navigation_reliability
+        source_slots: 4
+        rendered_slots: 4
+    reserve_projects: [petcare_ai, ros2_colour_blob_perception]
+    skill_groups: [general_software, test_development, ai_application]
+  test:
+    plan_role: test_development
+    education_entries: [EDU_MSC_ROBOTICS, EDU_HKU_EXCHANGE, EDU_XMU_BENG]
+    experience_entries:
+      - material_id: designlibro_ai_data_intern
+        source_slots: 5
+        rendered_slots: 4
+    project_entries:
+      - material_id: msc_navigation_reliability
+        source_slots: 4
+        rendered_slots: 4
+      - material_id: campus_job_pipeline
+        source_slots: 4
+        rendered_slots: 3
+      - material_id: ros2_colour_blob_perception
+        source_slots: 3
+        rendered_slots: 3
+    reserve_projects: [historical_dialogue_rag]
+    skill_groups: [test_development, general_software, robot_software]

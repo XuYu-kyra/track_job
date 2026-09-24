@@ -1,0 +1,340 @@
+role_families:
+  test_development:
+    priority: primary
+    resume_family: software_engineer
+    aliases:
+      - test development
+      - test development engineer
+      - test engineer
+      - sdet
+      - software development engineer in test
+      - qa automation engineer
+      - quality engineer
+      - software test engineer
+      - automation test engineer
+      - 测试开发
+      - 测试开发工程师
+      - 测开
+      - 自动化测试工程师
+      - 软件测试工程师
+      - 质量工程
+      - 质量工程师
+      - 测试工程师
+    keywords:
+      - automation
+      - pytest
+      - validation
+      - fault injection
+      - ci/cd
+      - 自动化测试
+      - 测试平台
+  ai_application:
+    priority: primary
+    resume_family: ai_engineer
+    aliases:
+      - ai application
+      - ai application engineer
+      - applied ai
+      - applied ai engineer
+      - llm application
+      - llm application engineer
+      - generative ai engineer
+      - agent engineer
+      - ai agent engineer
+      - ai engineer
+      - 大模型应用
+      - 大模型应用工程师
+      - ai应用工程师
+      - agent开发工程师
+      - 智能体开发
+      - ai开发工程师
+      - 大模型开发工程师
+    keywords:
+      - rag
+      - agent
+      - llm
+      - tool calling
+      - model evaluation
+      - fastapi
+      - 大模型
+      - 智能体
+  robot_software:
+    priority: primary
+    resume_family: robotics_engineer
+    aliases:
+      - robot software
+      - robot software engineer
+      - robotics software
+      - robotics software engineer
+      - robotics engineer
+      - ros engineer
+      - c++ robotics engineer
+      - 机器人软件
+      - 机器人软件工程师
+      - 机器人开发
+      - 机器人开发工程师
+      - ros开发工程师
+      - 机器人系统工程师
+    keywords:
+      - ros2
+      - linux
+      - c++
+      - simulation
+      - sensor
+      - localization
+      - 仿真
+  general_software:
+    priority: primary
+    resume_family: software_engineer
+    aliases:
+      - software engineer
+      - software development engineer
+      - swe
+      - software developer
+      - graduate software
+      - 软件开发
+      - 软件工程师
+      - 软件开发工程师
+      - 软件研发工程师
+      - 研发工程师
+      - 开发工程师
+    keywords:
+      - python
+      - api
+      - database
+      - linux
+      - testing
+      - data structures
+      - 软件工程
+  backend:
+    priority: primary
+    resume_family: software_engineer
+    aliases:
+      - backend engineer
+      - backend developer
+      - server engineer
+      - python backend
+      - java backend
+      - go backend
+      - 后端开发
+      - 后台开发
+      - 服务端开发
+      - java开发
+      - python开发
+      - go开发
+    keywords:
+      - java
+      - python
+      - spring boot
+      - sql
+      - microservices
+      - distributed systems
+      - 后端
+  fintech_backend:
+    priority: expansion
+    resume_family: software_engineer
+    aliases:
+      - fintech engineer
+      - fintech software engineer
+      - financial technology
+      - financial technology engineer
+      - 金融科技
+      - 金融科技开发
+      - 信息科技岗
+    keywords:
+      - java
+      - spring
+      - payment
+      - trading
+      - risk platform
+      - 金融
+  fintech_tech:
+    priority: expansion
+    resume_family: software_engineer
+    aliases:
+      - fintech technology
+      - financial technology engineer
+      - 金融科技岗
+      - 信息科技岗
+    keywords:
+      - java
+      - python
+      - banking technology
+      - payment
+      - trading
+
+  data_engineering:
+    priority: expansion
+    resume_family: software_engineer
+    aliases:
+      - data engineer
+      - data development engineer
+      - 数据开发工程师
+      - 数据工程师
+    keywords:
+      - pipeline
+      - etl
+      - sql
+      - data platform
+      - 数据平台
+
+  platform_sre:
+    priority: expansion
+    resume_family: software_engineer
+    aliases:
+      - platform engineer
+      - site reliability engineer
+      - sre
+      - devops engineer
+      - 运维开发工程师
+      - 平台开发工程师
+      - devops
+    keywords:
+      - kubernetes
+      - cloud
+      - observability
+      - on-call
+
+  engineering_tools:
+    priority: expansion
+    resume_family: software_engineer
+    aliases:
+      - engineering tools
+      - developer tools
+      - 工程效能
+      - 研发效能
+      - 工具链开发
+    keywords:
+      - build system
+      - tooling
+      - ci/cd
+      - developer workflow
+
+  software_automation:
+    priority: expansion
+    resume_family: software_engineer
+    aliases:
+      - software automation engineer
+      - automation engineer
+      - 软件自动化工程师
+      - 自动化开发工程师
+    keywords:
+      - automation
+      - workflow
+      - testing
+      - scripting
+
+  developer_productivity:
+    priority: expansion
+    resume_family: software_engineer
+    aliases:
+      - developer productivity
+      - developer experience
+      - devex
+      - 研发效能
+      - 开发者体验
+    keywords:
+      - internal tools
+      - developer platform
+      - build tooling
+      - ci/cd
+
+  reliability:
+    priority: expansion
+    resume_family: software_engineer
+    aliases:
+      - reliability engineer
+      - software reliability engineer
+      - reliability engineering
+      - 可靠性工程师
+      - 软件可靠性工程师
+    keywords:
+      - fault injection
+      - observability
+      - resilience
+      - testing
+
+  data_platform_sre:
+    priority: expansion
+    resume_family: software_engineer
+    aliases:
+      - data platform sre
+    keywords:
+      - data platform
+      - sre
+  algorithm_research:
+    priority: excluded
+    resume_family: ai_engineer
+    aliases:
+      - algorithm engineer
+      - research scientist
+      - 算法工程师
+      - 研究科学家
+    keywords:
+      - model training
+      - foundation model
+      - cv algorithm
+      - nlp algorithm
+      - 模型训练
+
+skill_taxonomy:
+  python:
+    aliases:
+      - python
+      - pytest
+      - fastapi
+  java:
+    aliases:
+      - java
+      - spring
+      - spring boot
+  cpp:
+    aliases:
+      - c++
+      - cpp
+      - cmake
+  testing_automation:
+    aliases:
+      - testing
+      - pytest
+      - automation
+      - mock
+      - validation
+      - fault injection
+      - ci/cd
+  backend_api:
+    aliases:
+      - backend
+      - api
+      - rest
+      - fastapi
+      - microservices
+  ai_llm:
+    aliases:
+      - rag
+      - llm
+      - embeddings
+      - vector search
+      - agent
+      - model evaluation
+  robotics:
+    aliases:
+      - ros2
+      - robotics
+      - perception
+      - simulation
+      - localization
+  linux_cloud:
+    aliases:
+      - linux
+      - docker
+      - kubernetes
+      - cloud
+      - ci/cd
+  database:
+    aliases:
+      - sql
+      - mysql
+      - postgresql
+      - redis
+      - database

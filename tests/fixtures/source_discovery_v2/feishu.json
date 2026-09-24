@@ -1,0 +1,3 @@
+{
+  "page": {"code": 0, "data": {"count": 1, "has_more": false, "job_post_list": [{"id": "F1", "title": "2027 Backend Engineer", "city_list": [{"name": "深圳"}], "description": "Build Python backend services, APIs, databases and observability with automated testing.", "requirement": "2027 graduate with Linux and software engineering foundations."}]}}
+}

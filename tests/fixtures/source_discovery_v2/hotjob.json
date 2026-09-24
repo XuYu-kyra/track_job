@@ -1,0 +1,5 @@
+{
+  "suite": "SUDEMO",
+  "page": {"state": "200", "data": {"pageForm": {"totalPage": 1, "pageData": [{"postId": "H1", "postName": "2027届软件工程师", "workPlaceStr": "深圳", "projectName": "校园招聘"}]}}},
+  "detail": {"state": "200", "data": {"workContent": "负责 Python 软件平台开发、API 集成、Linux 调试与自动化测试。", "qualification": "面向2027届毕业生。"}}
+}

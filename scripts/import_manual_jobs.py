@@ -5,15 +5,17 @@ from __future__ import annotations
 
 import argparse
 import json
-import re
-from datetime import date
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
 try:
     from common import normalize_whitespace
+    from job_schema import extract_stable_job_id
+    from source_health import record_source_health
 except ModuleNotFoundError:
     from scripts.common import normalize_whitespace
+    from scripts.job_schema import extract_stable_job_id
+    from scripts.source_health import record_source_health
 
 
 def parse_args() -> argparse.Namespace:
@@ -32,20 +34,27 @@ def infer_source(url: str) -> str:
         return "indeed"
     if "glassdoor." in lowered:
         return "glassdoor"
+    if "maimai.cn" in lowered:
+        return "maimai"
+    if "kanzhun.com" in lowered:
+        return "kanzhun"
+    if "nowcoder.com" in lowered:
+        return "nowcoder"
+    if "ncss.cn" in lowered:
+        return "ncss"
+    if "iguopin.com" in lowered:
+        return "guopin"
+    if "zhipin.com" in lowered or "boss直聘" in lowered:
+        return "boss"
+    if "weixin.qq.com" in lowered or "mp.weixin.qq.com" in lowered:
+        return "wechat"
+    if any(marker in lowered for marker in ("career.", "career/", "jobs.", "/jobs/")):
+        return "public_web"
     return "manual"
 
 
 def infer_job_id(url: str) -> str:
-    parsed = urlparse(url)
-    query = parse_qs(parsed.query)
-    for key in ("jk", "jobid", "jobId", "currentJobId"):
-        if query.get(key):
-            return query[key][0]
-    match = re.search(r"(\d{7,})", parsed.path)
-    if match:
-        return match.group(1)
-    slug = parsed.path.rstrip("/").split("/")[-1]
-    return slug or parsed.netloc
+    return extract_stable_job_id(url, infer_source(url))
 
 
 def clean_url(url: str) -> str:
@@ -77,8 +86,19 @@ def parse_manual_line(line: str) -> dict | None:
         return None
 
     parts = [part.strip() for part in stripped.split("|")]
-    parts += [""] * (5 - len(parts))
-    url, company, position, location, description = parts[:5]
+    parts += [""] * (10 - len(parts))
+    (
+        url,
+        company,
+        position,
+        location,
+        description,
+        deadline,
+        source_override,
+        dream_role,
+        notes,
+        application_profile,
+    ) = parts[:10]
     if not url.startswith("http"):
         return None
     url = clean_url(url)
@@ -87,13 +107,18 @@ def parse_manual_line(line: str) -> dict | None:
         "company": normalize_whitespace(company),
         "position": normalize_whitespace(position),
         "url": url,
-        "date": date.today().isoformat(),
         "location": normalize_whitespace(location),
-        "source": infer_source(url),
+        "source": normalize_whitespace(source_override) or infer_source(url),
         "description": normalize_whitespace(description),
+        "deadline": normalize_whitespace(deadline),
+        "dream_role": dream_role.casefold() in {"1", "true", "yes", "y", "是"},
+        "notes": normalize_whitespace(notes),
         "easy_apply": False,
+        "manual_ingest": True,
+        "observation_origin": "MANUAL_IMPORT",
         "search_keyword": "manual_import",
         "job_id": infer_job_id(url),
+        "application_profile": application_profile.strip().upper(),
     }
 
 
@@ -123,6 +148,11 @@ def normalize_manual_lines(input_path: str) -> list[str]:
                     parsed.get("position", ""),
                     parsed.get("location", ""),
                     parsed.get("description", ""),
+                    parsed.get("deadline", ""),
+                    parsed.get("source", ""),
+                    "true" if parsed.get("dream_role") else "false",
+                    parsed.get("notes", ""),
+                    parsed.get("application_profile", ""),
                 ]
             ).rstrip()
         )
@@ -157,6 +187,14 @@ def main() -> None:
     output_path = Path(args.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(jobs, indent=2, ensure_ascii=False), encoding="utf-8")
+    record_source_health(
+        "manual_inbox",
+        "SUCCESS" if jobs else "MANUAL_BY_DESIGN",
+        count=len(jobs),
+        attempted=len(jobs),
+        succeeded=len(jobs),
+        details="BOSS/WeChat/other manual intake; no closed-platform crawling",
+    )
     print(f"Wrote {len(jobs)} manual jobs to {output_path}")
 
 
