@@ -2,41 +2,45 @@
 
 [English](#english) · [中文](#中文)
 
+**Tech stack:** Python 3.10+ · Requests · Feishu/Lark OpenAPI · JSON/YAML configuration · PyMuPDF · LaTeX resume generation · `unittest` · Windows Task Scheduler support
+
 ## English
 
-Track Job is a personal job-search operating system built around one idea: every recommendation should be explainable, and every application should be recoverable.
+Track Job is a personal job-search operating system built around two rules: every recommendation should be explainable, and every application state should be recoverable. It is a data and decision pipeline—not an auto-apply bot.
 
-### The story
+### Problem model
 
-Job searching usually fragments into browser tabs, spreadsheets, resume variants, and half-remembered application states. I designed this project as a small data platform rather than an “auto-apply bot”. It separates recall, precision, and human control:
+Job-search data usually fragments across browser tabs, spreadsheets, resume variants, and application portals. The system separates three concerns that are often mixed together:
 
-- **Recall:** official ATS adapters, public-web discovery, and a human inbox surface opportunities that a fixed company allow-list would miss.
-- **Precision:** a canonical job schema, source verification, freshness windows, deduplication, eligibility gates, and evidence-backed scoring turn noisy postings into reviewable candidates.
-- **Human control:** collection is dry-run by default; risky actions and Feishu writes require explicit flags and preflight checks.
+- **Recall:** official ATS adapters, public-web discovery, and a human inbox surface both known and previously unseen companies.
+- **Precision:** canonical records, source verification, freshness, deduplication, eligibility rules, and evidence-based scoring turn noisy observations into reviewable candidates.
+- **Control:** local collection is dry-run by default; Feishu writes and other consequential actions require explicit flags and preflight checks.
 
-### What I designed and implemented
-
-- A normalized job schema with provenance, observation time, verification state, source health, and application evidence.
-- A two-lane discovery architecture for registered companies and newly discovered companies, with official ATS verification kept separate from supplemental sources.
-- Deterministic scoring for opportunity, lifestyle fit, evidence quality, timing, and capacity; uncertain records are routed to `WATCH` / `HUMAN_REVIEW_REQUIRED` instead of being presented as facts.
-- Cross-source deduplication, 14-day freshness checks, resumable runs, failure states, and Windows-friendly recovery paths.
-- A Golden Base resume workflow that keeps evidence-backed content stable while allowing bounded, auditable tailoring for a role family.
-- Feishu Bitable preview/upsert flows, interview-debrief capture, question-bank updates, analytics, and a next-day execution plan.
-
-### End-to-end flow
+### Runtime architecture
 
 ```text
-official / public-web / human discovery
+official ATS / public web / human discovery
   -> candidate inbox -> canonical verification -> normalize + deduplicate
   -> eligibility + evidence scoring -> WATCH / HOLD / READY / MUST_APPLY
-  -> resume preview -> Feishu dry-run or explicit apply -> debrief + analytics
+  -> bounded resume tailoring -> preview -> explicit Feishu write
+  -> application state -> interview debrief -> analytics + next-day plan
 ```
 
-The design decision I am most proud of is the safety boundary: automation organizes information and exposes trade-offs, while the final application decision remains explicit and traceable.
+### Engineering highlights
 
-### Quick start
+- Designed a normalized job schema carrying source URLs, provenance, observation time, verification state, source health, lifecycle state, and application evidence.
+- Kept official verification separate from supplemental discovery, including a two-lane model for registered and newly discovered companies.
+- Implemented deterministic scoring for opportunity, lifestyle fit, evidence quality, timing, and capacity. Missing or conflicting evidence is routed to `WATCH` or `HUMAN_REVIEW_REQUIRED` rather than being silently upgraded.
+- Added canonical-URL/job-ID identity rules, cross-source deduplication, 14-day freshness checks, resumable runs, explicit failure states, and Windows-friendly recovery.
+- Built a Golden Base resume workflow that preserves evidence-backed content while allowing bounded, auditable tailoring by role family.
+- Added Feishu Bitable preview/upsert flows, interview-debrief capture, question-bank updates, analytics, and execution-plan generation.
+- Added compile checks, configuration validation, unit tests, and a privacy gate through `make check`.
 
-Requires Python 3.10+.
+### Safety boundary
+
+The most important design choice is deliberate restraint. The pipeline can collect, compare, score, generate a preview, and explain its reasoning; it does not bypass logins or CAPTCHAs, and it does not turn incomplete job descriptions into facts. Final application decisions remain explicit and traceable.
+
+### Run the offline verification path
 
 ```bash
 python3 -m pip install -r requirements.txt
@@ -49,52 +53,42 @@ make check
 python3 scripts/run_daily_pipeline.py --skip-fetch --skip-documents
 ```
 
-The offline command exercises the decision pipeline without network access or Feishu writes. `--apply-feishu` is an explicit opt-in after preview and schema checks.
+This path exercises the decision pipeline without network access or Feishu writes. `--apply-feishu` remains an explicit opt-in after preview, schema validation, and source-coverage checks.
 
-### Why this is useful in an interview
+### Documentation
 
-This repository demonstrates product thinking, data modelling, source reliability, failure-aware automation, document generation, and a practical understanding of where human review belongs in an AI-assisted workflow. The most important output is not a list of jobs; it is a defensible decision trail.
+- [`docs/architecture.md`](docs/architecture.md): data contracts, discovery lanes, decision boundaries, resume selection, and privacy model.
+- [`docs/discovery-runbook.md`](docs/discovery-runbook.md): operational discovery workflow.
+- [`examples/README.md`](examples/README.md): example inputs and outputs.
 
 ## 中文
 
-Track Job 是一个面向真实求职流程的 **证据驱动型 Job Search OS**。它不把求职变成无人监管的“自动海投”，而是把岗位发现、核验、筛选、简历定制和投递复盘组织成一条可解释、可恢复、可审计的工程流水线。
+Track Job 是我为真实求职流程设计的 **证据驱动型 Job Search OS**。它不是自动海投工具，而是一条可解释、可恢复、可审计的数据与决策流水线：每个岗位为什么进入队列、依据来自哪里、用了哪版简历、当前走到哪一步，都能回溯。
 
-### 我为什么做它
+### 问题拆分
 
-真实求职同时面对三个冲突：只盯着已知公司会漏掉新机会；只做开放网页搜索会混入过期、重复或无法核验的岗位；岗位、简历版本和投递状态分散在多个工具里，很难回答“为什么投、用了哪版简历、现在到哪一步”。
+求职信息通常散落在网页、表格、简历版本和投递平台中。这个项目把三个容易混在一起的目标分开处理：
 
-我的解决方案是把 **召回率、精确率和人工控制** 分开设计：
+- **召回率：** 通过官方 ATS、公开网页和人工收件箱，同时覆盖已知公司与新发现公司；
+- **精确度：** 通过统一 schema、来源核验、时效、去重、Eligibility Gate 和证据评分，把噪声转成可检查的候选项；
+- **人工控制：** 默认 dry-run，飞书写入和其他有后果的动作必须显式开启并通过预检。
 
-- 用官方 ATS 适配器、公开网页发现和人工收件箱提高召回；
-- 用统一 schema、来源证据、更新时间、去重、Eligibility Gate 和证据评分提高精确度；
-- 默认 dry-run，任何高风险动作和飞书写入都必须显式授权并通过预检。
+### 工程实现
 
-### 我的核心工作
+- 设计包含来源、观测时间、核验状态、来源健康度、生命周期和投递证据的统一岗位数据模型；
+- 将补充来源发现与官方 ATS 核验分层，并支持“已登记公司 + 新发现公司”双轨流程；
+- 实现机会价值、生活方式、证据质量、时效和容量的确定性评分；缺失或冲突信息进入 `WATCH / HUMAN_REVIEW_REQUIRED`，不会被包装成确定事实；
+- 处理 canonical URL / job ID 身份规则、跨来源去重、14 天 freshness、可恢复运行和显式失败状态；
+- 建立 Golden Base 简历基线，按 role family 做有限、可审计的内容调整，同时保留证据约束；
+- 串起飞书预览/写入、面试复盘、问题库、分析报表和次日计划；
+- 通过 `make check` 统一运行语法检查、配置验证、单元测试和隐私检查。
 
-- 设计带来源 URL、观测时间、验证状态、来源健康度和投递证据的 canonical job schema；
-- 建立“已登记公司 + 新发现公司”的双轨发现架构，并把官方 ATS 核验与补充来源分层；
-- 实现机会、生活方式匹配、证据质量、时效和容量的确定性评分；不确定记录进入 `WATCH / HUMAN_REVIEW_REQUIRED`，不会被伪装成确定结论；
-- 处理跨来源去重、14 天 freshness、可恢复运行、失败降级和 Windows 定时任务恢复；
-- 设计 Golden Base 简历基线，在证据约束下为不同 role family 做有限、可审计的定制；
-- 串起飞书预览/写入、面试复盘、问题库、分析报表和次日执行计划。
+### 自动化边界
 
-### 最小演示
+系统可以收集、比较、评分、生成预览并解释原因，但不会绕过登录或验证码，也不会把不完整 JD 强行判定为可投递。最终投递决定始终由人确认，并留下可追踪记录。
 
-```bash
-python3 -m pip install -r requirements.txt
-cp config/targets.example.yaml config/targets.yaml
-cp config/feishu.example.yaml config/feishu.yaml
-cp config/profile.example.yaml config/profile.yaml
-cp config/execution.example.yaml config/execution.yaml
-cp config/company_registry.example.yaml config/company_registry.yaml
-make check
-python3 scripts/run_daily_pipeline.py --skip-fetch --skip-documents
-```
+### 本地验证
 
-离线命令可以在不联网、不写入飞书的情况下演示核心决策链路；只有在预览和 schema 检查通过后，才显式使用 `--apply-feishu`。
+上面的离线命令可在不联网、不写入飞书的情况下跑通核心决策链路。只有完成预览、schema 校验和来源覆盖检查后，才会显式使用 `--apply-feishu`。
 
-### 项目边界
-
-系统不会绕过验证码、登录或招聘平台安全机制，也不会把不完整 JD 强行标成“可投递”。它的价值不是替人做最终决定，而是把每个决定背后的来源、证据、风险和下一步行动讲清楚。
-
-更多实现映射见 [`docs/architecture.md`](docs/architecture.md)、[`docs/discovery-runbook.md`](docs/discovery-runbook.md) 和 [`examples/README.md`](examples/README.md)。
+架构细节见 [`docs/architecture.md`](docs/architecture.md)，发现流程见 [`docs/discovery-runbook.md`](docs/discovery-runbook.md)，示例见 [`examples/README.md`](examples/README.md)。
